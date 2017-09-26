@@ -1,1 +1,4 @@
-CMakeLists.txt not found in /Users/williamju/Developer/ctci6
+/Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /Users/williamju/Developer/ctci6
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /Users/williamju/Developer/ctci6/cmake-build-debug
