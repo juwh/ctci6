@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.6)
-project(project1_grade)
+project(ctci6)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
 
