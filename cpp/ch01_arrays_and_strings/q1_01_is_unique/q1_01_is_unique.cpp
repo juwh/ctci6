@@ -57,7 +57,7 @@ bool isUniqueCharsSort(std::string str) {
     return true;
 }
 
-int main () {
+int main() {
     std::string words [] = {"abcde", "hello", "apple", "kite", "padle"};
     for (const std::string &word : words) {
         //std::cout << word << ": " << isUniqueCharsSort(word) << std::endl;
