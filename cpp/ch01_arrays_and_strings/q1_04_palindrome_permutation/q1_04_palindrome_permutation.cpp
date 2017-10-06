@@ -1,17 +1,21 @@
 //
 // Created by William Ju on 10/3/17.
 //
-#include <bitset>
 #include <iostream>
 #include <string>
+#include <vector>
 
-bool isPermutationOfPalindrome(string phrase) {
-    // palindrome has even letters for all but one, can set up static array for ASCII and check
-    // even for all
-}
-
-bool checkMaxOneOdd(int* table) {
-
+bool checkMaxOneOdd(std::vector<int> table) {
+    bool foundOdd = false;
+    for (auto count : table) {
+        if (count % 2 == 1) {
+            if (foundOdd) {
+                return false;
+            }
+            foundOdd = true;
+        }
+    }
+    return true;
 }
 
 int getCharNumber(char c) {
@@ -24,25 +28,39 @@ int getCharNumber(char c) {
     return -1;
 }
 
-int* buildCharFrequencyTable(string phrase) {
-
-}
-
-bool isPermutationOfPalindromeOpt(string phrase) {
-
-}
-
-bool isPermutationOfPalindromeBit(string phrase) {
-
-}
-
-int createBitVector(string phrase) {
-    int bitVector = 0;
+std::vector<int> buildCharFrequencyTable(const std::string& phrase) {
+    std::vector<int> table((int)'z' - (int)'a' + 1);
     for (char c : phrase) {
         int x = getCharNumber(c);
-        bitVector = toggle(bitVector, x);
+        if (x != -1) {
+            table[x]++;
+        }
     }
-    return bitVector;
+    return table;
+}
+
+bool isPermutationOfPalindrome(const std::string& phrase) {
+    // palindrome has even letters for all but one, can set up static array for ASCII and check
+    // even for all
+    std::vector<int> table = buildCharFrequencyTable(phrase);
+    return checkMaxOneOdd(table);
+}
+
+bool isPermutationOfPalindromeOpt(const std::string& phrase) {
+    int countOdd = 0;
+    std::vector<int> table((int)'z' - (int)'a' + 1);
+    for (char c : phrase) {
+        int x = getCharNumber(c);
+        if (x != -1) {
+            table[x]++;
+            if (table[x] % 2 == 1) {
+                countOdd++;
+            } else {
+                countOdd--;
+            }
+        }
+    }
+    return countOdd <= 1;
 }
 
 int toggle(int bitVector, int index) {
@@ -59,13 +77,39 @@ int toggle(int bitVector, int index) {
     return bitVector;
 }
 
-bool checkExactlyOneBitSet(int bitVector) {
+int createBitVector(const std::string& phrase) {
+    int bitVector = 0;
+    for (char c : phrase) {
+        int x = getCharNumber(c);
+        bitVector = toggle(bitVector, x);
+    }
+    return bitVector;
+}
 
+bool checkExactlyOneBitSet(int bitVector) {
+    return (bitVector & (bitVector - 1)) == 0;
+}
+
+bool isPermutationOfPalindromeBit(const std::string& phrase) {
+    int bitVector = createBitVector(phrase);
+    return bitVector == 0 || checkExactlyOneBitSet(bitVector);
 }
 
 int main() {
-    string pali = "Ratzs live on no evil starz";
-    std::cout << isPermutationOfPalindrome(pali) << std::endl;
-    string pali2 = "Zeus was deified, saw Suez";
-    std::cout << isPermutationOfPalindrome(pali2) << std::endl;
+    std::string strings[] {"Rats live on no evil star",
+                        "A man, a plan, a canal, panama",
+                        "Lleve",
+                        "Tacotac",
+                        "asda"};
+    for (const std::string& s : strings) {
+        bool a = isPermutationOfPalindrome(s);
+        bool b = isPermutationOfPalindrome(s);
+        bool c = isPermutationOfPalindrome(s);
+        std::cout << s << std::endl;
+        if (a == b && b == c) {
+            std::cout << "Agree: " << a << std::endl;
+        } else {
+            std::cout << "Disagree: " << a << ", " << b << ", " << c << std::endl;
+        }
+    }
 }
