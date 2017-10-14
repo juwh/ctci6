@@ -10,7 +10,7 @@ add_executable(q1_04 cpp/ch01_arrays_and_strings/q1_04_palindrome_permutation/q1
 add_executable(q1_05 cpp/ch01_arrays_and_strings/q1_05_one_away/q1_05_one_away.cpp)
 add_executable(q1_06 cpp/ch01_arrays_and_strings/q1_06_string_compression/q1_06_string_compression.cpp)
 add_executable(q1_07 cpp/ch01_arrays_and_strings/q1_07_rotate_matrix/q1_07_rotate_matrix.cpp)
-#add_executable(q1_08 cpp/ch01_arrays_and_strings/q1_08_zero_matrix/q1_08_zero_matrix.cpp)
+add_executable(q1_08 cpp/ch01_arrays_and_strings/q1_08_zero_matrix/q1_08_zero_matrix.cpp)
 #add_executable(q1_09 cpp/ch01_arrays_and_strings/q1_09_string_rotation/q1_09_string_rotation.cpp)
 #add_executable(q2_01 cpp/ch02_linked_lists/q2_01_remove_dups/q2_01_remove_dups.cpp)
 #add_executable(q2_02 cpp/ch02_linked_lists/q2_02_return_kth_to_last/q2_02_return_kth_to_last.cpp)
