@@ -1,13 +1,16 @@
-//
-// Created by William Ju on 9/26/17.
-//
+/*
+1.1 Is Unique: Implement an algorithm to determine if a string has all unique characters.
+What if you cannot use additional data structures?
+
+Hints: #44, #117, #132
+*/
 #include <algorithm>
 #include <bitset>
 #include <iostream>
 #include <string>
 #include <vector>
 
-bool isUniqueChars(const std::string &str) {
+bool IsUniqueChars(const std::string &str) {
     if (str.length() > 128) {
         return false;
     }
@@ -22,7 +25,7 @@ bool isUniqueChars(const std::string &str) {
     return true;
 }
 
-bool isUniqueCharsBit(const std::string &str) {
+bool IsUniqueCharsBit(const std::string &str) {
     //Reduce space usage by a factor of 8 using bitvector.
     //Each boolean otherwise occupies a size of 8 bits.
     std::bitset<256> checker(0);
@@ -36,7 +39,7 @@ bool isUniqueCharsBit(const std::string &str) {
     return true;
 }
 
-bool isUniqueCharsManual(const std::string &str) {
+bool IsUniqueCharsManual(const std::string &str) {
     for (int i = 0; i < str.length()-1; i++) {
         for (int j = i+1; j < str.length(); j++) {
             if (str[i] == str[j]) {
@@ -47,7 +50,7 @@ bool isUniqueCharsManual(const std::string &str) {
     return true;
 }
 
-bool isUniqueCharsSort(std::string str) {
+bool IsUniqueCharsSort(std::string str) {
     std::sort(str.begin(), str.end());
     for (int i = 0; i < str.length()-1; i++) {
         if (str[i] == str[i+1]) {
@@ -64,8 +67,8 @@ int main() {
         //std::cout << word << ": " << isUniqueCharsManual(word) << std::endl;
         //std::cout << word << ": " << isUniqueChars(word) << std::endl;
         //std::cout << word << ": " << isUniqueCharsBit(word) << std::endl;
-        bool wordA =  isUniqueChars(word);
-        bool wordB =  isUniqueCharsBit(word);
+        bool wordA =  IsUniqueChars(word);
+        bool wordB =  IsUniqueCharsBit(word);
         if (wordA == wordB) {
             std::cout << word << ": " << wordA << std::endl;
         } else {

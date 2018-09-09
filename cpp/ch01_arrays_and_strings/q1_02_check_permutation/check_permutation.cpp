@@ -1,11 +1,14 @@
-//
-// Created by William Ju on 9/28/17.
-//
+/*
+1.2 Check Permutation: Given two strings, write a method to decide if one is a permutation 
+of the other.
+
+Hints: #1, #84, #122, #131
+*/
 #include <algorithm>
 #include <iostream>
 #include <string>
 
-bool permutation(std::string s, std::string t) {
+bool Permutation(std::string s, std::string t) {
     if (s.length() != t.length()) {
         return false;
     }
@@ -14,7 +17,7 @@ bool permutation(std::string s, std::string t) {
     return (s == t);
 }
 
-bool permutation_ascii(std::string s, std::string t) {
+bool PermutationAscii(std::string s, std::string t) {
     // Permutations must be same length
     if (s.length() != t.length()) {
         return false;
@@ -37,8 +40,8 @@ int main() {
     for (auto &pair : pairs) {
         std::string word1 = pair[0];
         std::string word2 = pair[1];
-        //bool anagram = permutation(word1, word2);
-        bool anagram = permutation_ascii(word1, word2);
+        //bool anagram = Permutation(word1, word2);
+        bool anagram = PermutationAscii(word1, word2);
         std::cout << word1 << ", " << word2 << ": " << anagram << std::endl;
     }
     return 0;

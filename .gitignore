@@ -9,3 +9,7 @@ bin/
 build/
 cmake-build-debug/
 Java/
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user

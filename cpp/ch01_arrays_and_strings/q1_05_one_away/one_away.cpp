@@ -1,57 +1,67 @@
-//
-// Created by William Ju on 10/6/17.
-//
+/*
+1.5 One Away: There are three types of edits that can be performed on strings: insert a
+character, remove a character, or replace a character. Given two strings, write a function
+to check if they are one edit (or zero edits) away.
+
+EXAMPLE
+pale, ple	-> true
+pales, pale	-> true
+pale, bale	-> true
+pale, bake	-> false
+
+Hints: #23, #97, #130
+*/
 #include <cmath>
 #include <iostream>
 #include <string>
 #include <vector>
 
-bool oneEditReplace(std::string s1, std::string s2) {
-    bool foundDifference = false;
+bool OneEditReplace(std::string s1, std::string s2) {
+    bool found_difference = false;
     for (int i = 0; i < s1.length(); i++) {
         if (s1[i] != s2[i]) {
-            if (foundDifference) {
+            if (found_difference) {
                 return false;
             }
-            foundDifference = true;
+			found_difference = true;
         }
     }
     return true;
 }
 
-bool oneEditInsert(std::string s1, std::string s2) {
-    int index1 = 0;
-    int index2 = 0;
-    while (index2 < s2.length() && index1 < s1.length()) {
-        if (s1[index1] != s2[index2]) {
-            if (index1 != index2) {
+bool OneEditInsert(std::string s1, std::string s2) {
+    int index_1 = 0;
+    int index_2 = 0;
+    while (index_2 < s2.length() && index_1 < s1.length()) {
+        if (s1[index_1] != s2[index_2]) {
+            if (index_1 != index_2) {
                 return false;
             }
-            index2++;
+			index_2++;
         } else {
-            index1++;
-            index2++;
+			index_1++;
+			index_2++;
         }
     }
     return true;
 }
 
-bool oneEditAway(std::string first, std::string second) {
+bool OneEditAway(std::string first, std::string second) {
     if (first.length() == second.length()) {
-        return oneEditReplace(first, second);
+        return OneEditReplace(first, second);
     } else {
         if (first.length() + 1 == second.length()) {
-            return oneEditInsert(first, second);
+            return OneEditInsert(first, second);
         } else {
             if (first.length() == second.length() +1) {
-                return oneEditInsert(second, first);
+                return OneEditInsert(second, first);
             }
         }
     }
     return false;
 }
 
-bool oneEditAwayMerged(std::string first, std::string second) {
+bool OneEditAwayMerged(std::string first, std::string second) {
     if (std::fabs((int)first.length() - (int)second.length()) > 1) {
         return false;
     }
@@ -59,32 +69,32 @@ bool oneEditAwayMerged(std::string first, std::string second) {
     std::string s1 = first.length() < second.length() ? first : second;
     std::string s2 = first.length() < second.length() ? second : first;
 
-    int index1 = 0;
-    int index2 = 0;
-    bool foundDifference = false;
-    while (index2 < s2.length() && index1 < s1.length()) {
-        if (s1[index1] != s2[index2]) {
-            if (foundDifference) {
+    int index_1 = 0;
+    int index_2 = 0;
+    bool found_difference = false;
+    while (index_2 < s2.length() && index_1 < s1.length()) {
+        if (s1[index_1] != s2[index_2]) {
+            if (found_difference) {
                 return false;
             }
-            foundDifference = true;
+			found_difference = true;
 
             if (s1.length() == s2.length()) {
-                index1++;
+				index_1++;
             }
         } else {
-            index1++;
+			index_1++;
         }
-        index2++;
+		index_2++;
     }
     return true;
 }
 
-void test(const std::string& a, const std::string& b, bool expected) {
-    bool resultA = oneEditAwayMerged(a, b);
-    bool resultB = oneEditAwayMerged(a, b);
+void Test(const std::string& a, const std::string& b, bool expected) {
+    bool result_a = OneEditAwayMerged(a, b);
+    bool result_b = OneEditAwayMerged(a, b);
 
-    if (resultA == expected && resultB == expected) {
+    if (result_a == expected && result_b == expected) {
         std::cout << a << ", " << b << ": success" << std::endl;
     } else {
         std::cout << a << ", " << b << ": error" << std::endl;
@@ -112,7 +122,8 @@ int main() {
         std::string b = single_test[1];
         bool expected = single_test[2] == "true";
 
-        test(a, b, expected);
-        test(b, a, expected);
+        Test(a, b, expected);
+        Test(b, a, expected);
     }
+	return 0;
 }

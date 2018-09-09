@@ -1,11 +1,15 @@
-//
-// Created by William Ju on 10/7/17.
-//
+/*
+1.7 Rotate Matrix: Given an image represented by an NxN matrix, where each pixel in the
+image is 4 bytes, write a method to rotate the image by 90 degrees. Can you do this in
+place?
 
+Hints: #92, #110
+*/
 #include <iostream>
+
 #include "../../ctcilib/ctcilib/assorted_methods.cpp"
 
-bool rotate(std::vector< std::vector<int> >& matrix) {
+bool Rotate(std::vector< std::vector<int> >& matrix) {
     int n = matrix.size();
     for (int layer = 0; layer < n / 2; layer++) {
         int first = layer;
@@ -33,9 +37,10 @@ bool rotate(std::vector< std::vector<int> >& matrix) {
 }
 
 int main() {
-    std::vector< std::vector<int> > matrix = randomMatrix(3, 3, 0, 9);
-    printMatrix(matrix);
-    rotate(matrix);
+    std::vector< std::vector<int> > matrix = RandomMatrix(3, 3, 0, 9);
+    PrintMatrix(matrix);
+    Rotate(matrix);
     std::cout << std::endl;
-    printMatrix(matrix);
+    PrintMatrix(matrix);
+	return 0;
 }
