@@ -10,9 +10,9 @@ Hints:
 removed first. Can you simulate a single stack using an array? Remember that there are
 many possible solutions, and there are tradeoffs of each.
 
-#12. We could simulate three stacks in an array by just allocating the first third of the
-array to the first stack, the second third to the second stack, and the final third to
-the third stack. One might actually be much bigger than the others, though. Can we be
+#12. We could simulate three stacks in an array by just allocating the first third of 
+the array to the first stack, the second third to the second stack, and the final third 
+to the third stack. One might actually be much bigger than the others, though. Can we be
 more flexible with the divisions?
 
 #38. If you want to allow for flexible divisions, you can shift stacks around. Can you
