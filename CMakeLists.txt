@@ -1,7 +1,8 @@
-cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION 3.8)
 project(ctci6)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 
 add_executable(q1_01 cpp/ch01_arrays_and_strings/q1_01_is_unique/is_unique.cpp)
 add_executable(q1_02 cpp/ch01_arrays_and_strings/q1_02_check_permutation/check_permutation.cpp)
