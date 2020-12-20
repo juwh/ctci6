@@ -3,31 +3,32 @@
 //
 
 #include <iostream>
+#include <vector>
 
-const int DATA_SIZE = 32;
+const size_t DATA_SIZE = 32;
 
 class BitVector {
 private:
-    int length;
-    int* vector;
+    size_t length;
+    std::vector< size_t > vector;
 
 public:
-    BitVector(int length) {
-        this.length = length;
+    BitVector(size_t length) {
+        this->length = length;
         if (length % DATA_SIZE == 0) {
-            vector = new int[length / DATA_SIZE];
+            vector = std::vector< size_t >(length / DATA_SIZE);
         } else {
-            vector = new int[length / DATA_SIZE + 1];
+            vector = std::vector< size_t >(length / DATA_SIZE + 1);
         }
     }
 
-    int length() {
+    size_t length() {
         return length;
     }
 
-    bool get(int i) {
-        int b = vector[i / DATA_SIZE];
-        int bit_index = i % DATA_SIZE;
+    bool get(size_t i) {
+        size_t b = vector[i / DATA_SIZE];
+        size_t bit_index = i % DATA_SIZE;
 
         if (((b >> bit_index) & 1) == 1) {
             return true;
@@ -37,8 +38,8 @@ public:
     }
 
     void print() {
-        for (int k : vector) {
-            for (int i = 0; i < DATA_SIZE; i++) {
+        for (size_t k : vector) {
+            for (size_t i = 0; i < DATA_SIZE; i++) {
                 if ((k >> i & 1) == 1) {
                     std::cout << 1;
                 } else {
@@ -49,10 +50,10 @@ public:
         }
     }
 
-    void set(int i, bool flag) {
+    void set(size_t i, bool flag) {
         if (i >= 0 && i < length) {
-            int mask = ~(1 << i);
-            int b = vector[i / DATA_SIZE] & mask;
+            size_t mask = ~(1 << i);
+            size_t b = vector[i / DATA_SIZE] & mask;
             if (flag) {
                 vector[i / DATA_SIZE] = b | (1 << i);
             } else {

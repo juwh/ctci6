@@ -1,10 +1,16 @@
 cmake_minimum_required(VERSION 3.8)
 project(ctci6)
+include_directories(include)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
 
-add_executable(q1_01 test/ch01_arrays_and_strings/q1_01_is_unique/main.cpp)
+set(q01_01
+    src/arrays_and_strings/is_unique.cpp
+    include/arrays_and_strings/is_unique.h
+    test/ch01_arrays_and_strings/q01_is_unique/main.cpp)
+add_executable(q01_01 ${q01_01})
+
 #add_executable(q1_02 cpp/ch01_arrays_and_strings/q1_02_check_permutation/check_permutation.cpp)
 #add_executable(q1_03 cpp/ch01_arrays_and_strings/q1_03_urlify/urlify.cpp)
 #add_executable(q1_04 cpp/ch01_arrays_and_strings/q1_04_palindrome_permutation/palindrome_permutation.cpp)
