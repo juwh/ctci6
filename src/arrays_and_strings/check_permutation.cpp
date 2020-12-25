@@ -26,3 +26,20 @@ bool PermutationAscii(std::string s, std::string t) {
     }
     return true;
 }
+
+bool PermutationUnorderedSet(std::string s, std::string t) {
+    if (s.length() != t.length()) {
+        return false;
+    }
+    std::unordered_map< char, int > letters;
+    for (char letter : s) {
+        letters[letter]++;
+    }
+    for (char letter : t) {
+        letters[letter]--;
+        if (letters[letter] < 0) {
+            return false;
+        }
+    }
+    return true;
+}

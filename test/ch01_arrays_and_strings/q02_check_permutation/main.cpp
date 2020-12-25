@@ -29,7 +29,8 @@ int main() {
         std::string word1 = pair[0];
         std::string word2 = pair[1];
         //bool anagram = Permutation(word1, word2);
-        bool anagram = PermutationAscii(word1, word2);
+        //bool anagram = PermutationAscii(word1, word2);
+        bool anagram = PermutationUnorderedSet(word1, word2);
         std::cout << word1 << ", " << word2 << ": " << anagram << std::endl;
     }
     return 0;
