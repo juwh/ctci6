@@ -49,7 +49,6 @@ to be the same length and each row has to be the same length.
 would you identify transitive relationships? A == B, A == C, and C == D implies A
 == D == B == C.
 #480. 17.17 Start with a brute force solution. What is the runtime?
-#483. 17.2 Try approaching this problem recursively.
 #484. 17.26 Solution 1: Start with just a simple algorithm comparing all documents to all other docu-
 ments. How would you compute the similarity of two documents as fast as possible?
 #485. 17.5 It doesn't really matter which letter or number it is. You can simplify this problem to just
@@ -181,9 +180,6 @@ for many documents, so some precomputing can make sense.
 #578. 17.16 Iterative solution: Use an example and work backwards. You can easily find the optimal
 solution for the subarrays {r_(n)}, {r_(n-1), r_(n)}, {r_(n-2), ..., r_(n)}. How would you use
 those to quickly find the optimal solution for {r_(n-3), ..., r_(n)}?
-#579. 17.2 Suppose you had a method shuffle that worked on decks up to n - 1 elements.
-Could you use this method to implement a new shuffle method that works on decks
-up to n elements?
 #580. 17.22 Create a mapping from a wildcard form (like b_ll) to all words in that form. Then, when
 you want to find all words that are one edit away from bill, you can look up _ill,
 b_ll, bi_l, and bil_ in the mapping.
@@ -271,8 +267,6 @@ What other calculations could we do?
 #629. 17.21 What role does the tallest bar in the histogram play?
 #633. 17.11 Can you just iterate through both arrays with two pointers? You should be able to do it
 in O(A+B) time, where A and B are the sizes of the two arrays.
-#634. 17.2 You could build this algorithm recursively by swapping the nth element for any of the
-elements before it. What would this look like iteratively?
 #636. 17.26 Solution 3: There's an alternative solution. Consider taking all of the words from all of the
 documents, throwing them into one giant list, and sorting this list. Assume you could
 still know which document each word came from. How could you track the similar pairs?
