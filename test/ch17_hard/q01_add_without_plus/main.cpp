@@ -228,7 +228,6 @@ to solve this in O(n) time and O(1) additional space.
 together to convert the whole tree to a doubly linked list?
 #609. 17.19 Part 1: What if you added up all the values in the array? Could you then figure out the
 missing number?
-#610. 17.4 How long would it take you to figure out the least significant bit of the missing number?
 #611. 17.26 Solution 2: Imagine you are looking up the documents similar to {1, 4, 6} by using a hash
 table that maps from a word to documents. The same document ID appears multiple
 times when doing this lookup. What does that indicate?
@@ -305,10 +304,6 @@ any duplicates, since the longest sequence needs to strictly increase). What doe
 you about the original problem?
 #658. 17.21 You can handle the remainder of the graph by just repeating this process: find the tallest
 bar and the second tallest bar, and subtract out the bars in between.
-#659. 17.4 To find the least significant bit of the missing number, note that you know how many
-0s and 1s to expect. For example, if you see three 0s and three 1s in the least significant
-bit, then the missing number's least Significant bit must be a 1. Think about it: in any
-sequence of 0s and 1s, you'd get a 0, then a 1, then a 0, then a 1, and so on.
 #660. 17.9 Rather than checking all values in the list for the next value (by multiplying each by 3,
 5, and 7), think about it this way: when you insert a value x into the list, you can "create"
 the values 3x, 5x, and 7x to be used later.
@@ -349,9 +344,6 @@ left's linked list). Really, you need both the start and end of the linked list.
 asking for the next instance of a particular character. Is there a way you can optimize
 this? You should be able to do this in O(1) time.
 #682. 17.8 Try a recursive approach that just evaluates all possibilities.
-#683. 17.4 Once you've identified that the least significant bit is a 0 (or a 1), you can rule out all the
-numbers without 0 as the least significant bit. How is this problem different from the
-earlier part?
 #684. 17.23 Start with a brute force solution. Can you try the biggest possible square first?
 #686. 17.9 When you add x to the list of the first k values, you can add 3x, 5x, and 7x to some new
 list. How do you make this as optimal as possible? Would it make sense to keep multiple
