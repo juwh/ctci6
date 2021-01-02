@@ -62,7 +62,6 @@ the form 3^(a) * 5^(b) * 7^(c).
 #492. 16.1 Try picturing the two numbers, a and b, on a number line.
 #493. 17.7 The core part of the problem is to group names into the various spellings. From there,
 figuring out the frequencies is relatively easy.
-#494. 17.3 If you haven't already, solve 17.2 on page 186.
 #495. 17.16 There are recursive and iterative solutions to this problem, but it's probably easier to
 start with the recursive solution.
 #496. 17.13 Try a recursive approach.
@@ -206,8 +205,6 @@ variables.
 #593. 17.14 What about using a heap or tree of some sort?
 #595. 17.24 With precomputation, you should be able to get a runtime of O(N^(4)). Can you make this
 even faster?
-#596. 17.3 Try this recursively. Suppose you had an algorithm to get a subset of size m from n - 1
-elements. Could you develop an algorithm to get a subset of size m from n elements?
 #598 17.22 Your previous algorithm probably resembles a depth-first search. Can you make this
 faster?
 #603. 17.26 Solution 2: Once you have a way of easily finding the documents similar to a particular
