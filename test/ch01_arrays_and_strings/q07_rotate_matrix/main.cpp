@@ -16,9 +16,9 @@ it to four arrays?
 */
 #pragma endregion
 
-#include <iostream>
+#include "ctcilib/assorted_methods.cpp"
 
-#include "../../ctcilib/ctcilib/assorted_methods.cpp"
+#include <iostream>
 
 bool Rotate(std::vector< std::vector<int> >& matrix) {
     int n = matrix.size();
