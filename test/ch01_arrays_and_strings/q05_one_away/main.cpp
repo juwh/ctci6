@@ -40,7 +40,7 @@ int main() {
                         {"adfdsfadsf", "affdsfads", "false"},
                         {"pale", "pkle", "true"},
                         {"pkle", "pable", "false"} };
-    for (int i = 0; i < tests.size(); i++) {
+    for (size_t i = 0; i < tests.size(); i++) {
         std::vector<std::string> single_test = tests[i];
         std::string a = single_test[0];
         std::string b = single_test[1];
