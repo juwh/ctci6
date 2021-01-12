@@ -9,7 +9,7 @@
 int RandomInt(int n) {
     std::default_random_engine generator;
     generator.seed(std::random_device()());
-    std::uniform_int_distribution<int> distribution(0, n-1);
+    std::uniform_int_distribution< int > distribution(0, n-1);
     return distribution(generator);
 }
 
@@ -139,8 +139,8 @@ std::string toBaseNString(int a, int base) {
 */
 
 void PrintMatrix(std::vector< std::vector<int> > matrix) {
-    for (int i = 0; i < matrix.size(); i++) {
-        for (int j = 0; j < matrix[i].size(); j++) {
+    for (size_t i = 0; i < matrix.size(); i++) {
+        for (size_t j = 0; j < matrix[i].size(); j++) {
             if (matrix[i][j] < 10 && matrix[i][j] > -10) {
                 std::cout << " ";
             }
@@ -157,8 +157,8 @@ void PrintMatrix(std::vector< std::vector<int> > matrix) {
 }
 
 void PrintMatrix(std::vector< std::vector<bool> > matrix) {
-    for (int i = 0; i < matrix.size(); i++) {
-        for (int j = 0; j < matrix[i].size(); j++) {
+    for (size_t i = 0; i < matrix.size(); i++) {
+        for (size_t j = 0; j < matrix[i].size(); j++) {
             if (matrix[i][j]) {
                 std::cout << "1";
             } else {

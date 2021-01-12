@@ -1,9 +1,4 @@
-//
-// Created by William Ju on 10/10/17.
-//
-
-#include <iostream>
-#include <vector>
+#include "BitVector.h"
 
 const size_t DATA_SIZE = 32;
 
