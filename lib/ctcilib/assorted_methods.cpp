@@ -1,60 +1,57 @@
-//
-// Created by William Ju on 10/7/17.
-//
-
 #include <iostream>
 #include <random>
 #include <vector>
 
-int RandomInt(int n) {
-    std::default_random_engine generator;
-    generator.seed(std::random_device()());
-    std::uniform_int_distribution< int > distribution(0, n-1);
-    return distribution(generator);
-}
+namespace ctcilib {
+    int RandomInt(int n) {
+        std::default_random_engine generator;
+        generator.seed(std::random_device()());
+        std::uniform_int_distribution< int > distribution(0, n-1);
+        return distribution(generator);
+    }
 
-int RandomIntInRange(int min, int max) {
-    return RandomInt(max + 1 - min) + min;
-}
+    int RandomIntInRange(int min, int max) {
+        return RandomInt(max + 1 - min) + min;
+    }
 
-bool RandomBoolean() {
-    return RandomIntInRange(0, 1) == 0;
-}
+    bool RandomBoolean() {
+        return RandomIntInRange(0, 1) == 0;
+    }
 
-bool RandomBoolean(int percent_true) {
-    return RandomIntInRange(1, 100) <= percent_true;
-}
+    bool RandomBoolean(int percent_true) {
+        return RandomIntInRange(1, 100) <= percent_true;
+    }
 
-std::vector< std::vector<bool> > RandomBooleanMatrix(int m, int n, int percent_true) {
-    std::vector< std::vector<bool> > matrix;
-    matrix.resize(m, std::vector<bool>(n));
-    for (int i = 0; i < m; i++) {
-        for (int j = 0; j < n; j++) {
-            matrix[i][j] = RandomBoolean(percent_true);
+    std::vector< std::vector<bool> > RandomBooleanMatrix(int m, int n, int percent_true) {
+        std::vector< std::vector<bool> > matrix;
+        matrix.resize(m, std::vector<bool>(n));
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                matrix[i][j] = RandomBoolean(percent_true);
+            }
         }
+        return matrix;
     }
-    return matrix;
-}
 
-std::vector< std::vector<int> > RandomMatrix(int m, int n, int min, int max) {
-    std::vector< std::vector<int> > matrix;
-    matrix.resize(m, std::vector<int>(n));
-    for (int i = 0; i < m; i++) {
-        for (int j = 0; j < n; j++) {
-            matrix[i][j] = RandomIntInRange(min, max);
+    std::vector< std::vector<int> > RandomMatrix(int m, int n, int min, int max) {
+        std::vector< std::vector<int> > matrix;
+        matrix.resize(m, std::vector<int>(n));
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                matrix[i][j] = RandomIntInRange(min, max);
+            }
         }
+        return matrix;
     }
-    return matrix;
-}
 
 
-std::vector<int> RandomArray(int n, int min, int max) {
-    std::vector<int> array(n);
-    for (int j = 0; j < n; j++) {
-        array[j] = RandomIntInRange(min, max);
+    std::vector<int> RandomArray(int n, int min, int max) {
+        std::vector<int> array(n);
+        for (int j = 0; j < n; j++) {
+            array[j] = RandomIntInRange(min, max);
+        }
+        return array;
     }
-    return array;
-}
 
 /*
 LinkedListNode randomLinkedList(int N, int min, int max) {
@@ -138,36 +135,36 @@ std::string toBaseNString(int a, int base) {
 }
 */
 
-void PrintMatrix(std::vector< std::vector<int> > matrix) {
-    for (size_t i = 0; i < matrix.size(); i++) {
-        for (size_t j = 0; j < matrix[i].size(); j++) {
-            if (matrix[i][j] < 10 && matrix[i][j] > -10) {
-                std::cout << " ";
+    void PrintMatrix(std::vector< std::vector<int> > matrix) {
+        for (size_t i = 0; i < matrix.size(); i++) {
+            for (size_t j = 0; j < matrix[i].size(); j++) {
+                if (matrix[i][j] < 10 && matrix[i][j] > -10) {
+                    std::cout << " ";
+                }
+                if (matrix[i][j] < 100 && matrix[i][j] > -100) {
+                    std::cout << " ";
+                }
+                if (matrix[i][j] >= 0) {
+                    std::cout << " ";
+                }
+                std::cout << " " << matrix[i][j];
             }
-            if (matrix[i][j] < 100 && matrix[i][j] > -100) {
-                std::cout << " ";
-            }
-            if (matrix[i][j] >= 0) {
-                std::cout << " ";
-            }
-            std::cout << " " << matrix[i][j];
+            std::cout << std::endl;
         }
-        std::cout << std::endl;
     }
-}
 
-void PrintMatrix(std::vector< std::vector<bool> > matrix) {
-    for (size_t i = 0; i < matrix.size(); i++) {
-        for (size_t j = 0; j < matrix[i].size(); j++) {
-            if (matrix[i][j]) {
-                std::cout << "1";
-            } else {
-                std::cout << "0";
+    void PrintMatrix(std::vector< std::vector<bool> > matrix) {
+        for (size_t i = 0; i < matrix.size(); i++) {
+            for (size_t j = 0; j < matrix[i].size(); j++) {
+                if (matrix[i][j]) {
+                    std::cout << "1";
+                } else {
+                    std::cout << "0";
+                }
             }
+            std::cout << std::endl;
         }
-        std::cout << std::endl;
     }
-}
 
 /*
 void printIntArray(int[] array) {
@@ -608,3 +605,4 @@ String[] getListOfWords() {
 }
 }
 */
+}
