@@ -48,10 +48,10 @@ bool Rotate(std::vector< std::vector<int> >& matrix) {
 }
 
 int main() {
-    std::vector< std::vector<int> > matrix = RandomMatrix(3, 3, 0, 9);
-    PrintMatrix(matrix);
+    std::vector< std::vector<int> > matrix = ctcilib::RandomMatrix(3, 3, 0, 9);
+    ctcilib::PrintMatrix(matrix);
     Rotate(matrix);
     std::cout << std::endl;
-    PrintMatrix(matrix);
+    ctcilib::PrintMatrix(matrix);
 	return 0;
 }

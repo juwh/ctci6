@@ -20,8 +20,9 @@ orders. Can you make the orders the same?
 */
 #pragma endregion
 
-#include <iostream>
 #include "arrays_and_strings/check_permutation.h"
+
+#include <iostream>
 
 int main() {
     std::string pairs[3][2] {{"apple", "papel"}, {"carrot", "tarroc"}, {"hello", "llloh"}};
