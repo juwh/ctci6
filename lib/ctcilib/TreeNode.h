@@ -1,7 +1,7 @@
 #ifndef TREENODE_H_
 #define TREENODE_H_
 
-#include "BTreePrinter.h"
+#include "ctcilib/BTreePrinter.h"
 
 #include <vector>
 
@@ -16,7 +16,7 @@ namespace ctcilib {
             void set_left_child(TreeNode<T>* left);
             void set_right_child(TreeNode<T>* right);
             /* Helper function for added copy constructor */
-            void copy_node_recursive(TreeNode<T>* &to, const TreeNode<T>* from, const TreeNode<T>* parent);
+            void copy_node_recursive(TreeNode<T>* &to, const TreeNode<T>* from, TreeNode<T>* parent);
             /* static TreeNode<T>* createMinimalBST(std::vector<T> arr, size_t start, size_t end)
             * Formally static function for object initialization, the method has been converted to be
             * a constructor to better manage memory allocation, class invariants
@@ -64,7 +64,7 @@ void TreeNode<T>::set_right_child(TreeNode<T>* right) {
 }
 
 template<typename T>
-void TreeNode<T>::copy_node_recursive(TreeNode<T>* &to, const TreeNode<T>* from, const TreeNode<T>* parent) {
+void TreeNode<T>::copy_node_recursive(TreeNode<T>* &to, const TreeNode<T>* from, TreeNode<T>* parent) {
 	if (from) {
 		if (to) {
 			delete to;
@@ -78,7 +78,7 @@ void TreeNode<T>::copy_node_recursive(TreeNode<T>* &to, const TreeNode<T>* from,
 }
 
 template<typename T>
-TreeNode<T>::TreeNode(std::vector<T> arr, size_t start, size_t end) : m_size{end - start} {
+TreeNode<T>::TreeNode(std::vector<T> arr, size_t start, size_t end) : m_size{end - start}, m_left{nullptr}, m_right{nullptr}, m_parent{nullptr} {
 	if (end >= arr.size()) {
 		throw std::invalid_argument("Final index argument must be less than the vector size.");
 	}
@@ -87,8 +87,14 @@ TreeNode<T>::TreeNode(std::vector<T> arr, size_t start, size_t end) : m_size{end
 	}
 	size_t mid {(start + end) / 2};
 	m_data = arr[mid];
-	m_left = mid - 1 > start ? new TreeNode(arr, start, mid - 1) : nullptr;
-	m_right = end > mid + 1 ? new TreeNode(arr, mid + 1, end) : nullptr;
+	if (mid - 1 > start) {
+		m_left = new TreeNode(arr, start, mid - 1);
+		m_left->m_parent = this;
+	}
+	if (end > mid + 1) {
+		m_right = new TreeNode(arr, mid + 1, end);
+		m_right->m_parent = this;
+	}
 }
 
 template<typename T>
@@ -125,12 +131,14 @@ void TreeNode<T>::insert_in_order(T d) {
 	if (d <= m_data) {
 		if (m_left == nullptr) {
 			m_left = new TreeNode(d);
+			m_left->m_parent = this;
 		} else {
 			m_left->insert_in_order(d);
 		}
 	} else {
 		if (m_right == nullptr) {
 			m_right = new TreeNode(d);
+			m_right->m_parent = this;
 		} else {
 			m_right->insert_in_order(d);
 		}
