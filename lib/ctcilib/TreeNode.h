@@ -1,7 +1,7 @@
 #ifndef TREENODE_H_
 #define TREENODE_H_
 
-#include "ctcilib/BTreePrinter.h"
+#include "BTreePrinter.h"
 
 #include <vector>
 
