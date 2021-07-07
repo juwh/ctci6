@@ -1,93 +1,94 @@
+#include "LinkedListNode.h"
+#include "TreeNode.h"
+#include "Trie.h"
+
 #include <iostream>
 #include <random>
 #include <vector>
 
 namespace ctcilib {
-    int RandomInt(int n) {
+    int random_int(int n) {
         std::default_random_engine generator;
         generator.seed(std::random_device()());
         std::uniform_int_distribution< int > distribution(0, n-1);
         return distribution(generator);
     }
 
-    int RandomIntInRange(int min, int max) {
-        return RandomInt(max + 1 - min) + min;
+    int random_int_in_range(int min, int max) {
+        return random_int(max + 1 - min) + min;
     }
 
-    bool RandomBoolean() {
-        return RandomIntInRange(0, 1) == 0;
+    bool random_boolean() {
+        return random_int_in_range(0, 1) == 0;
     }
 
-    bool RandomBoolean(int percent_true) {
-        return RandomIntInRange(1, 100) <= percent_true;
+    bool random_boolean(int percent_true) {
+        return random_int_in_range(1, 100) <= percent_true;
     }
 
-    std::vector< std::vector<bool> > RandomBooleanMatrix(int m, int n, int percent_true) {
+    std::vector< std::vector<bool> > random_boolean_matrix(int m, int n, int percent_true) {
         std::vector< std::vector<bool> > matrix;
         matrix.resize(m, std::vector<bool>(n));
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                matrix[i][j] = RandomBoolean(percent_true);
+                matrix[i][j] = random_boolean(percent_true);
             }
         }
         return matrix;
     }
 
-    std::vector< std::vector<int> > RandomMatrix(int m, int n, int min, int max) {
+    std::vector< std::vector<int> > random_matrix(int m, int n, int min, int max) {
         std::vector< std::vector<int> > matrix;
         matrix.resize(m, std::vector<int>(n));
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                matrix[i][j] = RandomIntInRange(min, max);
+                matrix[i][j] = random_int_in_range(min, max);
             }
         }
         return matrix;
     }
 
-
-    std::vector<int> RandomArray(int n, int min, int max) {
+    std::vector<int> random_array(int n, int min, int max) {
         std::vector<int> array(n);
         for (int j = 0; j < n; j++) {
-            array[j] = RandomIntInRange(min, max);
+            array[j] = random_int_in_range(min, max);
         }
         return array;
     }
 
+    LinkedListNode<int> random_linked_list(int n, int min, int max) {
+        LinkedListNode<int> root(random_int_in_range(min, max), nullptr, nullptr);
+        LinkedListNode<int> prev = root;
+        for (int i = 1; i < n; i++) {
+            int data = random_int_in_range(min, max);
+            LinkedListNode<int> next = LinkedListNode<int>(data, nullptr, nullptr);
+            prev.set_next(&next);
+            prev = next;
+        }
+        return root;
+    }
+
+    LinkedListNode<int> linkedListWithValue(int N, int value) {
+        LinkedListNode root = new LinkedListNode(value, null, null);
+        LinkedListNode prev = root;
+        for (int i = 1; i < N; i++) {
+            LinkedListNode next = new LinkedListNode(value, null, null);
+            prev.setNext(next);
+            prev = next;
+        }
+        return root;
+    }
+
+    LinkedListNode<int> createLinkedListFromArray(int[] vals) {
+        LinkedListNode head = new LinkedListNode(vals[0], null, null);
+        LinkedListNode current = head;
+        for (int i = 1; i < vals.length; i++) {
+            current = new LinkedListNode(vals[i], null, current);
+        }
+        return head;
+    }
+
 /*
-LinkedListNode randomLinkedList(int N, int min, int max) {
-    LinkedListNode root = new LinkedListNode(randomIntInRange(min, max),
-                                             null, null);
-    LinkedListNode prev = root;
-    for (int i = 1; i < N; i++) {
-        int data = randomIntInRange(min, max);
-        LinkedListNode next = new LinkedListNode(data, null, null);
-        prev.setNext(next);
-        prev = next;
-    }
-    return root;
-}
-
-LinkedListNode linkedListWithValue(int N, int value) {
-    LinkedListNode root = new LinkedListNode(value, null, null);
-    LinkedListNode prev = root;
-    for (int i = 1; i < N; i++) {
-        LinkedListNode next = new LinkedListNode(value, null, null);
-        prev.setNext(next);
-        prev = next;
-    }
-    return root;
-}
-
-LinkedListNode createLinkedListFromArray(int[] vals) {
-    LinkedListNode head = new LinkedListNode(vals[0], null, null);
-    LinkedListNode current = head;
-    for (int i = 1; i < vals.length; i++) {
-        current = new LinkedListNode(vals[i], null, current);
-    }
-    return head;
-}
-
-
 std::string arrayToString(int* array) {
     if (array == null) return "";
     return arrayToString(array, 0, array.length - 1);
