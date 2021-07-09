@@ -3,7 +3,11 @@
 #include "Trie.h"
 
 #include <iostream>
+#include <iterator>
+#include <queue>
 #include <random>
+#include <sstream>
+#include <unordered_set>
 #include <vector>
 
 namespace ctcilib {
@@ -200,65 +204,41 @@ namespace ctcilib {
     }
 
     /* Creates tree by mapping the array left to right, top to bottom. */
-    TreeNode createTreeFromArray(int[] array) {
-        if (array.length > 0) {
-            TreeNode root = new TreeNode(array[0]);
-            java.util.Queue<TreeNode> queue = new java.util.LinkedList<TreeNode>();
-            queue.add(root);
-            boolean done = false;
-            int i = 1;
-            while (!done) {
-                TreeNode r = (TreeNode) queue.element();
-                if (r.left == null) {
-                    r.left = new TreeNode(array[i]);
-                    i++;
-                    queue.add(r.left);
-                } else if (r.right == null) {
-                    r.right = new TreeNode(array[i]);
-                    i++;
-                    queue.add(r.right);
-                } else {
-                    queue.remove();
-                }
-                if (i == array.length) {
-                    done = true;
-                }
-            }
-            return root;
-        } else {
-            return null;
-        }
+    TreeNode<int> create_tree_from_array(std::vector<int> array) {
+        return TreeNode<int>(array);
     }
 
-    String getLongTextBlob() {
-        String book = "As they rounded a bend in the path that ran beside the river, Lara recognized the silhouette of a fig tree atop a nearby hill. The weather was hot and the days were long. The fig tree was in full leaf, but not yet bearing fruit. "
+    std::string get_long_text_blob() {
+        std::string book = std::string("As they rounded a bend in the path that ran beside the river, Lara recognized the silhouette of a fig tree atop a nearby hill. The weather was hot and the days were long. The fig tree was in full leaf, but not yet bearing fruit. ")
                     + "Soon Lara spotted other landmarks�an outcropping of limestone beside the path that had a silhouette like a man�s face, a marshy spot beside the river where the waterfowl were easily startled, a tall tree that looked like a man with his arms upraised. They were drawing near to the place where there was an island in the river. The island was a good spot to make camp. They would sleep on the island tonight."
                     + "Lara had been back and forth along the river path many times in her short life. Her people had not created the path�it had always been there, like the river�but their deerskin-shod feet and the wooden wheels of their handcarts kept the path well worn. Lara�s people were salt traders, and their livelihood took them on a continual journey. ";
-        String book_mod = book.replace('.', ' ').replace(',', ' ')
-                .replace('-', ' ');
-        return book_mod;
+        std::replace(book.begin(), book.end(), '.', ' ');
+        std::replace(book.begin(), book.end(), ',', ' ');
+        std::replace(book.begin(), book.end(), '-', ' ');
+        return book;
     }
 
-    String[] getLongTextBlobAsStringList() {
-        return getLongTextBlob().split(" ");
+    std::vector<std::string> get_long_text_blob_as_string_list() {
+        std::istringstream iss{get_long_text_blob()};
+        return std::vector<std::string> {std::istream_iterator<std::string>{iss}, std::istream_iterator<std::string>{}};
     }
 
-    Trie getTrieDictionary() {
-        return new Trie(getListOfWords());
+    Trie get_trie_dictionary() {
+        return Trie(get_list_of_words());
     }
 
-    HashSet<String> getWordListAsHashSet() {
-        String[] wordList = getListOfWords();
-        HashSet<String> wordSet = new HashSet<String>();
-        for (String s : wordList) {
-            wordSet.add(s);
+    std::unordered_set<std::string> get_word_list_as_hash_set() {
+        std::vector<std::string> word_list = get_list_of_words();
+        std::unordered_set<std::string> word_set;
+        for (std::string s : word_list) {
+            word_set.insert(s);
         }
-        return wordSet;
+        return word_set;
     }
 
-    String[] getListOfWords() {
+    std::vector<std::string> get_list_of_words() {
         // Words in the dictionary.
-        String[] wordList = { "the", "of", "and", "a", "to", "in", "is", "be",
+        std::vector<std::string> word_list{ "the", "of", "and", "a", "to", "in", "is", "be",
                             "that", "was", "world", "awesome", "he", "for", "it", "with",
                             "as", "his", "I", "on", "have", "at", "by", "not", "surely",
                             "they", "this", "attract", "computer", "had", "are", "but",
@@ -597,6 +577,6 @@ namespace ctcilib {
                             "sick", "swell", "blind", "Contemporary", "engineer",
                             "military", "boundary", "location", "homes", "boil",
                             "officials", "operator", "Senate", "lend", "hearts", "embers", "abused", "resins", "trendy", "ssdsy" };
-        return wordList;
+        return word_list;
     }
 }
