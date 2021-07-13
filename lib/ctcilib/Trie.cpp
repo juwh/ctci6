@@ -3,9 +3,9 @@
 using namespace ctcilib;
 
 /* Takes a list of strings as an argument, and constructs a trie that stores these strings. */
-Trie::Trie(std::vector<std::string> list) : root{} {
+Trie::Trie(std::vector<std::string> list) : root_{} {
     for (std::string word : list) {
-        root.add_word(word);
+        root_.add_word(word);
     }
 }  
 
@@ -13,7 +13,7 @@ Trie::Trie(std::vector<std::string> list) : root{} {
     * in as argument.
     */
 bool Trie::contains(std::string prefix, bool exact) {
-    TrieNode* last_node = &root;
+    TrieNode* last_node = &root_;
     for (size_t i = 0; i < prefix.length(); i++) {
         last_node = last_node->get_child(prefix.at(i));
         if (last_node == nullptr) {
@@ -28,5 +28,5 @@ bool Trie::contains(std::string prefix) {
 }
 
 TrieNode* Trie::get_root() {
-    return &root;
+    return &root_;
 }

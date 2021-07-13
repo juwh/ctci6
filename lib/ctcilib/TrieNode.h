@@ -10,11 +10,11 @@ namespace ctcilib {
     class TrieNode {
         private:
             /* The children of this node in the trie.*/
-            std::unordered_map<char, TrieNode*> children;
-            bool m_terminates {false};
+            std::unordered_map<char, TrieNode*> children_;
+            bool terminates_ {false};
 
             // The character stored in this node as data.
-            char m_character;	
+            char character_;	
 
         public:
             /* Constructs a trie node and stores this character as the node's value.

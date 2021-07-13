@@ -4,10 +4,10 @@ using namespace ctcilib;
 
 TrieNode::TrieNode() {}
 
-TrieNode::TrieNode(char character) : m_character{character} {}
+TrieNode::TrieNode(char character) : character_{character} {}
 
 char TrieNode::get_char() {
-    return m_character;
+    return character_;
 }
 
 void TrieNode::add_word(std::string word) {
@@ -17,7 +17,7 @@ void TrieNode::add_word(std::string word) {
         TrieNode* child = get_child(first_char);
         if (!child) {
             child = new TrieNode(first_char);
-            children.insert({first_char, child});
+            children_.insert({first_char, child});
         } 
 
         if (word.length() > 1) {
@@ -29,13 +29,13 @@ void TrieNode::add_word(std::string word) {
 }
 
 TrieNode* TrieNode::get_child(char c) {
-    return children.at(c);
+    return children_.at(c);
 }
 
 bool TrieNode::terminates() {
-    return m_terminates;
+    return terminates_;
 }
 
 void TrieNode::set_terminates(bool t) {
-    m_terminates = t;
+    terminates_ = t;
 }

@@ -6,10 +6,10 @@
 namespace ctcilib {
 	template<typename T>
 	struct LinkedListNode {
-		LinkedListNode<T>* m_next;
-		LinkedListNode<T>* m_prev;
-		LinkedListNode<T>* m_last; // invariant not maintained in original Java?
-		T m_data;
+		LinkedListNode<T>* next_;
+		LinkedListNode<T>* prev_;
+		LinkedListNode<T>* last_; // invariant not maintained in original Java?
+		T data_;
 		LinkedListNode(T d, LinkedListNode<T>* n, LinkedListNode<T>* p);
 		LinkedListNode(T d);
 		LinkedListNode();
@@ -29,57 +29,57 @@ namespace ctcilib {
 using namespace ctcilib;
 
 template<typename T>
-LinkedListNode<T>::LinkedListNode(T d, LinkedListNode<T>* n, LinkedListNode<T>* p) : m_next{nullptr}, m_prev{nullptr}, m_last{nullptr}, m_data{d} {
+LinkedListNode<T>::LinkedListNode(T d, LinkedListNode<T>* n, LinkedListNode<T>* p) : next_{nullptr}, prev_{nullptr}, last_{nullptr}, data_{d} {
 	set_next(n);
 	set_previous(p);
 }
 
 template<typename T>
-LinkedListNode<T>::LinkedListNode(T d) : m_next{nullptr}, m_prev{nullptr}, m_last{nullptr}, m_data{d} {}	
+LinkedListNode<T>::LinkedListNode(T d) : next_{nullptr}, prev_{nullptr}, last_{nullptr}, data_{d} {}	
 
 template<typename T>
-LinkedListNode<T>::LinkedListNode() : m_next{nullptr}, m_prev{nullptr}, m_last{nullptr}, m_data{} {}
+LinkedListNode<T>::LinkedListNode() : next_{nullptr}, prev_{nullptr}, last_{nullptr}, data_{} {}
 
 template<typename T>
 LinkedListNode<T>::~LinkedListNode() {
-	delete m_next;
+	delete next_;
 }
 
 template<typename T>
 void LinkedListNode<T>::set_next(const LinkedListNode<T>* n) {
-	m_next = n;
-	if (this == m_last) {
-		m_last = n;
+	next_ = n;
+	if (this == last_) {
+		last_ = n;
 	}
-	if (n && n->m_prev != this) {
+	if (n && n->prev_ != this) {
 		n->set_previous(this);
 	}
 }
 
 template<typename T>
 void LinkedListNode<T>::set_previous(const LinkedListNode<T>* p) {
-	m_prev = p;
-	if (p && p->m_next != this) {
+	prev_ = p;
+	if (p && p->next_ != this) {
 		p->set_next(this);
 	}
 }	
 
 template<typename T>
 std::string LinkedListNode<T>::print_forward() {
-	if (m_next) {
-		return m_data + "->" + m_next->print_forward();
+	if (next_) {
+		return data_ + "->" + next_->print_forward();
 	} else {
-		return (std::string)m_data;
+		return (std::string)data_;
 	}
 }
 
 template<typename T>
-LinkedListNode<T>::LinkedListNode(const LinkedListNode<T>& linked_list_node) : m_next{nullptr}, m_prev{nullptr}, m_last{nullptr}, m_data{linked_list_node.m_data} {
-	LinkedListNode<T>* new_ptr{m_next};
-	for (auto copy_ptr=linked_list_node.m_next; copy_ptr; copy_ptr=copy_ptr->m_next) {
-		new_ptr = new LinkedListNode(copy_ptr->m_data);
-		new_ptr->m_prev = this;
-		new_ptr=new_ptr->m_next;
+LinkedListNode<T>::LinkedListNode(const LinkedListNode<T>& linked_list_node) : next_{nullptr}, prev_{nullptr}, last_{nullptr}, data_{linked_list_node.m_data} {
+	LinkedListNode<T>* new_ptr{next_};
+	for (auto copy_ptr=linked_list_node.next_; copy_ptr; copy_ptr=copy_ptr->next_) {
+		new_ptr = new LinkedListNode(copy_ptr->data_);
+		new_ptr->prev_ = this;
+		new_ptr=new_ptr->next_;
 	}
 }
 
@@ -88,7 +88,7 @@ const LinkedListNode<T>& LinkedListNode<T>::operator= (const LinkedListNode<T> &
 	if (this != &rhs)
    {
       LinkedListNode<T> tmp(rhs);
-      std::swap(this->m_next, tmp.m_next);
+      std::swap(this->next_, tmp.next_);
    }
    return *this;
 }

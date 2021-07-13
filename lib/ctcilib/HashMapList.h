@@ -6,7 +6,7 @@ namespace ctcilib {
 	template<typename T, typename E>
 	class HashMapList {
 		private:
-			std::unordered_map<T, std::vector<E>> map;
+			std::unordered_map<T, std::vector<E>> map_;
 		
 		public:
 			/* Insert item into list at key. */
@@ -36,27 +36,27 @@ using namespace ctcilib;
 template<typename T, typename E>
 void HashMapList<T, E>::put(T key, E item) {
 	if (!contains_key(key)) {
-		map.insert(key, std::vector<E>{});
+		map_.insert(key, std::vector<E>{});
 	}
-	map.at(key).push_back(item);
+	map_.at(key).push_back(item);
 }
 
 /* Insert list of items at key. */
 template<typename T, typename E>
 void HashMapList<T, E>::put(T key, std::vector<E> items) {
-	map.insert({key, items});
+	map_.insert({key, items});
 }
 
 /* Get list of items at key. */
 template<typename T, typename E>
 std::vector<E> HashMapList<T, E>::get(T key) {
-	return map.at(key);
+	return map_.at(key);
 }
 
 /* Check if hashmaplist contains key. */
 template<typename T, typename E>
 bool HashMapList<T, E>::contains_key(T key) {
-	return map.contains(key);
+	return map_.contains(key);
 }
 
 /* Check if list at key contains value. */
@@ -78,7 +78,7 @@ bool HashMapList<T, E>::contains_key_value(T key, E value) {
 template<typename T, typename E>
 std::set<T> HashMapList<T, E>::key_set() {
 	std::set<T> keys{};
-	for (auto kv : map) {
+	for (auto kv : map_) {
 		keys.insert(kv.first);
 	}
 	return keys;
@@ -87,8 +87,8 @@ std::set<T> HashMapList<T, E>::key_set() {
 template<typename T, typename E>
 std::string HashMapList<T, E>::to_string() {
 	std::string output{"{"};
-	for (auto kv : map) {
-		output += map.first + "=" + map.second + ",";
+	for (auto kv : map_) {
+		output += map_.first + "=" + map_.second + ",";
 	}
 	if (output.length > 1) {
 		output.back() = "}";

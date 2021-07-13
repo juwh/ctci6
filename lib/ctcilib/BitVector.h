@@ -7,8 +7,8 @@
 namespace ctcilib {
     class BitVector {
     private:
-        size_t m_length{};
-        std::vector< size_t > vector;
+        size_t length_{};
+        std::vector< size_t > vector_;
     public:
         BitVector(size_t length);
         size_t length() const;

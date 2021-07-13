@@ -12,7 +12,7 @@ namespace ctcilib {
     template<typename T>
     class TreeNode {
         private:
-            size_t m_size;
+            size_t size_;
             void set_left_child(TreeNode<T>* left);
             void set_right_child(TreeNode<T>* right);
             /* Helper function for added copy constructor */
@@ -23,10 +23,10 @@ namespace ctcilib {
             */
             TreeNode(std::vector<T> arr, size_t start, size_t end);
         public:
-            T m_data;
-            TreeNode<T>* m_left;
-            TreeNode<T>* m_right;
-            TreeNode<T>* m_parent;
+            T data_;
+            TreeNode<T>* left_;
+            TreeNode<T>* right_;
+            TreeNode<T>* parent_;
             TreeNode(T d);
             TreeNode(const TreeNode<T>& tree_node);
             ~TreeNode();
@@ -49,7 +49,7 @@ using namespace ctcilib;
 
 template<typename T>
 void TreeNode<T>::set_left_child(TreeNode<T>* left) {
-	m_left = left;
+	left_ = left;
 	if (left != nullptr) {
 		left->parent = this;
 	}
@@ -57,7 +57,7 @@ void TreeNode<T>::set_left_child(TreeNode<T>* left) {
 
 template<typename T>
 void TreeNode<T>::set_right_child(TreeNode<T>* right) {
-	m_right = right;
+	right_ = right;
 	if (right != nullptr) {
 		right->parent = this;
 	}
@@ -69,16 +69,16 @@ void TreeNode<T>::copy_node_recursive(TreeNode<T>* &to, const TreeNode<T>* from,
 		if (to) {
 			delete to;
 		}
-		to = new TreeNode<T>(from->m_data);
-		to->m_size = from->m_size;
-		to->m_parent = parent;
-		copy_node_recursive(to->m_left, from->m_left, to);
-		copy_node_recursive(to->m_right, from->m_right, to);
+		to = new TreeNode<T>(from->data_);
+		to->size_ = from->size_;
+		to->parent_ = parent;
+		copy_node_recursive(to->left_, from->left_, to);
+		copy_node_recursive(to->right_, from->right_, to);
 	}
 }
 
 template<typename T>
-TreeNode<T>::TreeNode(std::vector<T> arr, size_t start, size_t end) : m_size{end - start}, m_left{nullptr}, m_right{nullptr}, m_parent{nullptr} {
+TreeNode<T>::TreeNode(std::vector<T> arr, size_t start, size_t end) : size_{end - start}, left_{nullptr}, right_{nullptr}, parent_{nullptr} {
 	if (end >= arr.size()) {
 		throw std::invalid_argument("Final index argument must be less than the vector size.");
 	}
@@ -86,32 +86,32 @@ TreeNode<T>::TreeNode(std::vector<T> arr, size_t start, size_t end) : m_size{end
 		throw std::invalid_argument("Vector range must include at least one data element.");
 	}
 	size_t mid {(start + end) / 2};
-	m_data = arr[mid];
+	data_ = arr[mid];
 	if (mid - 1 > start) {
-		m_left = new TreeNode(arr, start, mid - 1);
-		m_left->m_parent = this;
+		left_ = new TreeNode(arr, start, mid - 1);
+		left_->parent_ = this;
 	}
 	if (end > mid + 1) {
-		m_right = new TreeNode(arr, mid + 1, end);
-		m_right->m_parent = this;
+		right_ = new TreeNode(arr, mid + 1, end);
+		right_->parent_ = this;
 	}
 }
 
 template<typename T>
-TreeNode<T>::TreeNode(T d) : m_size{1}, m_data{d}, m_left{nullptr}, m_right{nullptr}, m_parent{nullptr} {}
+TreeNode<T>::TreeNode(T d) : size_{1}, data_{d}, left_{nullptr}, right_{nullptr}, parent_{nullptr} {}
 
 template <typename T>
-TreeNode<T>::TreeNode(const TreeNode<T>& node) : m_size{node.m_size}, m_data{node.m_data}, m_left{nullptr}, m_right{nullptr}, m_parent{nullptr}
+TreeNode<T>::TreeNode(const TreeNode<T>& node) : size_{node.size_}, data_{node.data_}, left_{nullptr}, right_{nullptr}, parent_{nullptr}
 {
-	copy_node_recursive(m_left, node.m_left, this);
-	copy_node_recursive(m_right, node.m_right, this);
+	copy_node_recursive(left_, node.left_, this);
+	copy_node_recursive(right_, node.right_, this);
 }
 
 template <typename T>
 TreeNode<T>::~TreeNode()
 {
-	delete m_left;
-	delete m_right;
+	delete left_;
+	delete right_;
 }
 
 template <typename T>
@@ -120,47 +120,47 @@ const TreeNode<T>& TreeNode<T>::operator= (const TreeNode<T>& rhs)
    if (this != &rhs)
    {
       TreeNode<T> tmp(rhs);
-      std::swap(this->m_left, tmp.m_left);
-      std::swap(this->m_right, tmp.m_right);
+      std::swap(this->left_, tmp.left_);
+      std::swap(this->right_, tmp.right_);
    }
    return *this;
 }
 
 template<typename T>
 void TreeNode<T>::insert_in_order(T d) {
-	if (d <= m_data) {
-		if (m_left == nullptr) {
-			m_left = new TreeNode(d);
-			m_left->m_parent = this;
+	if (d <= data_) {
+		if (left_ == nullptr) {
+			left_ = new TreeNode(d);
+			left_->parent_ = this;
 		} else {
-			m_left->insert_in_order(d);
+			left_->insert_in_order(d);
 		}
 	} else {
-		if (m_right == nullptr) {
-			m_right = new TreeNode(d);
-			m_right->m_parent = this;
+		if (right_ == nullptr) {
+			right_ = new TreeNode(d);
+			right_->parent_ = this;
 		} else {
-			m_right->insert_in_order(d);
+			right_->insert_in_order(d);
 		}
 	}
-	m_size++;
+	size_++;
 }
 
 template<typename T>
 size_t TreeNode<T>::size() const {
-	return m_size;
+	return size_;
 }
 
 template<typename T>
 bool TreeNode<T>::is_bst() const {
-	if (m_left != nullptr) {
-		if (m_data < m_left->data || !m_left->is_bst()) {
+	if (left_ != nullptr) {
+		if (data_ < left_->data || !left_->is_bst()) {
 			return false;
 		}
 	}
 	
-	if (m_right != nullptr) {
-		if (m_data >= m_right->m_data || !m_right->is_bst()) {
+	if (right_ != nullptr) {
+		if (data_ >= right_->data_ || !right_->is_bst()) {
 			return false;
 		}
 	}		
@@ -169,19 +169,19 @@ bool TreeNode<T>::is_bst() const {
 
 template<typename T>
 size_t TreeNode<T>::height() const {
-	int left_height = m_left != nullptr ? m_left->height() : 0;
-	int right_height = m_right != nullptr ? m_right->height() : 0;
+	int left_height = left_ != nullptr ? left_->height() : 0;
+	int right_height = right_ != nullptr ? right_->height() : 0;
 	return 1 + std::max(left_height, right_height);
 }
 
 template<typename T>
 TreeNode<T>* TreeNode<T>::find(T d) const {
-	if (d == m_data) {
+	if (d == data_) {
 		return this;
-	} else if (d <= m_data) {
-		return m_left != nullptr ? m_left->find(d) : nullptr;
-	} else if (d > m_data) {
-		return m_right != nullptr ? m_right->find(d) : nullptr;
+	} else if (d <= data_) {
+		return left_ != nullptr ? left_->find(d) : nullptr;
+	} else if (d > data_) {
+		return right_ != nullptr ? right_->find(d) : nullptr;
 	}
 	return nullptr;
 }

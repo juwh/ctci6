@@ -13,7 +13,7 @@ namespace ctcilib {
     {
         // The root of this trie.
         private:
-            TrieNode root;
+            TrieNode root_;
 
         public:
             /* Takes a list of strings as an argument, and constructs a trie that stores these strings. */    
