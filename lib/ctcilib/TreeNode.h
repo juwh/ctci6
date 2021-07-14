@@ -187,7 +187,7 @@ TreeNode<T>* TreeNode<T>::find(T d) const {
 }
 
 template<typename T>
-TreeNode<T>::TreeNode(std::vector<T> array) : TreeNode(array, 0, array.length - 1) {}
+TreeNode<T>::TreeNode(std::vector<T> array) : TreeNode(array, 0, array.size() - 1) {}
 
 template<typename T>
 void TreeNode<T>::print() const {

@@ -14,8 +14,8 @@ namespace ctcilib {
 		LinkedListNode(T d);
 		LinkedListNode();
 		~LinkedListNode();
-		void set_next(const LinkedListNode<T>* n);
-		void set_previous(const LinkedListNode<T>* p);
+		void set_next(LinkedListNode<T>* n);
+		void set_previous(LinkedListNode<T>* p);
 		std::string print_forward();
 		/* LinkedListNode clone()
 		* Formally function for copied object initialization, the method has been converted to be
@@ -46,7 +46,7 @@ LinkedListNode<T>::~LinkedListNode() {
 }
 
 template<typename T>
-void LinkedListNode<T>::set_next(const LinkedListNode<T>* n) {
+void LinkedListNode<T>::set_next(LinkedListNode<T>* n) {
 	next_ = n;
 	if (this == last_) {
 		last_ = n;
@@ -57,7 +57,7 @@ void LinkedListNode<T>::set_next(const LinkedListNode<T>* n) {
 }
 
 template<typename T>
-void LinkedListNode<T>::set_previous(const LinkedListNode<T>* p) {
+void LinkedListNode<T>::set_previous(LinkedListNode<T>* p) {
 	prev_ = p;
 	if (p && p->next_ != this) {
 		p->set_next(this);
@@ -74,7 +74,7 @@ std::string LinkedListNode<T>::print_forward() {
 }
 
 template<typename T>
-LinkedListNode<T>::LinkedListNode(const LinkedListNode<T>& linked_list_node) : next_{nullptr}, prev_{nullptr}, last_{nullptr}, data_{linked_list_node.m_data} {
+LinkedListNode<T>::LinkedListNode(const LinkedListNode<T>& linked_list_node) : next_{nullptr}, prev_{nullptr}, last_{nullptr}, data_{linked_list_node.data_} {
 	LinkedListNode<T>* new_ptr{next_};
 	for (auto copy_ptr=linked_list_node.next_; copy_ptr; copy_ptr=copy_ptr->next_) {
 		new_ptr = new LinkedListNode(copy_ptr->data_);

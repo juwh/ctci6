@@ -32,8 +32,8 @@ namespace ctcilib {
 
             /* Add this word to the trie, and recursively create the child
             * nodes. */
-
             void add_word(std::string word);
+            
             /* Find a child node of this node that has the char argument as its
             * data. Return null if no such child node is present in the trie.
             */

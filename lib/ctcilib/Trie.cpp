@@ -7,11 +7,11 @@ Trie::Trie(std::vector<std::string> list) : root_{} {
     for (std::string word : list) {
         root_.add_word(word);
     }
-}  
+}
 
 /* Checks whether this trie contains a string with the prefix passed
-    * in as argument.
-    */
+* in as argument.
+*/
 bool Trie::contains(std::string prefix, bool exact) {
     TrieNode* last_node = &root_;
     for (size_t i = 0; i < prefix.length(); i++) {
