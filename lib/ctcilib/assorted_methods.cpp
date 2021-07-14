@@ -7,6 +7,7 @@
 #include <queue>
 #include <random>
 #include <sstream>
+#include <string>
 #include <unordered_set>
 #include <vector>
 
@@ -92,13 +93,6 @@ namespace ctcilib {
         return head;
     }
 
-    std::string array_to_string(std::vector<int> array) {
-        if (array.size() == 0) {
-            return "";
-        }
-        return array_to_string(array, 0, array.size() - 1);
-    }
-
     std::string array_to_string(std::vector<int> array, size_t start, size_t end) {
         std::string sb{};
         for (size_t i = start; i <= end; i++) {
@@ -106,6 +100,13 @@ namespace ctcilib {
             sb += v + ", ";
         }
         return sb;
+    }
+
+    std::string array_to_string(std::vector<int> array) {
+        if (array.size() == 0) {
+            return "";
+        }
+        return array_to_string(array, 0, array.size() - 1);
     }
 
     std::string string_array_to_string(std::vector<std::string> array) {
@@ -221,19 +222,6 @@ namespace ctcilib {
     std::vector<std::string> get_long_text_blob_as_string_list() {
         std::istringstream iss{get_long_text_blob()};
         return std::vector<std::string> {std::istream_iterator<std::string>{iss}, std::istream_iterator<std::string>{}};
-    }
-
-    Trie get_trie_dictionary() {
-        return Trie(get_list_of_words());
-    }
-
-    std::unordered_set<std::string> get_word_list_as_hash_set() {
-        std::vector<std::string> word_list = get_list_of_words();
-        std::unordered_set<std::string> word_set;
-        for (std::string s : word_list) {
-            word_set.insert(s);
-        }
-        return word_set;
     }
 
     std::vector<std::string> get_list_of_words() {
@@ -578,5 +566,20 @@ namespace ctcilib {
                             "military", "boundary", "location", "homes", "boil",
                             "officials", "operator", "Senate", "lend", "hearts", "embers", "abused", "resins", "trendy", "ssdsy" };
         return word_list;
+    }
+
+/*
+    Trie get_trie_dictionary() {
+        return Trie(get_list_of_words());
+    }
+*/
+
+    std::unordered_set<std::string> get_word_list_as_hash_set() {
+        std::vector<std::string> word_list = get_list_of_words();
+        std::unordered_set<std::string> word_set;
+        for (std::string s : word_list) {
+            word_set.insert(s);
+        }
+        return word_set;
     }
 }
