@@ -69,7 +69,7 @@ std::string LinkedListNode<T>::print_forward() {
 	if (next_) {
 		return data_ + "->" + next_->print_forward();
 	} else {
-		return (std::string)data_;
+		return "" + data_;
 	}
 }
 
