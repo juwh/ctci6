@@ -1,15 +1,4 @@
-#include "LinkedListNode.h"
-#include "TreeNode.h"
-#include "Trie.h"
-
-#include <iostream>
-#include <iterator>
-#include <queue>
-#include <random>
-#include <sstream>
-#include <string>
-#include <unordered_set>
-#include <vector>
+#include "assorted_methods.h"
 
 namespace ctcilib {
     int random_int(int n) {
@@ -568,14 +557,12 @@ namespace ctcilib {
         return word_list;
     }
 
-/*
     Trie get_trie_dictionary() {
-        return Trie(get_list_of_words());
+        //return Trie(get_list_of_words());
     }
-*/
 
     std::unordered_set<std::string> get_word_list_as_hash_set() {
-        std::vector<std::string> word_list = get_list_of_words();
+        auto word_list = get_list_of_words();
         std::unordered_set<std::string> word_set;
         for (std::string s : word_list) {
             word_set.insert(s);

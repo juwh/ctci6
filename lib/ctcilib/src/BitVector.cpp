@@ -37,7 +37,7 @@ void BitVector::print() const {
 
 void BitVector::set(size_t i, bool flag) {
     if (i >= 0 && i < length_) {
-        size_t mask {~(1 << i)};
+        size_t mask {~((size_t)1 << i)};
         size_t b = vector_[i / kDataSize] & mask;
         if (flag) {
             vector_[i / kDataSize] = b | (1 << i);

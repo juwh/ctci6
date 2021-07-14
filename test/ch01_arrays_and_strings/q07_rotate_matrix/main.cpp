@@ -16,7 +16,7 @@ it to four arrays?
 */
 #pragma endregion
 
-#include "ctcilib/assorted_methods.cpp"
+#include <ctcilib/assorted_methods.h>
 
 #include <iostream>
 

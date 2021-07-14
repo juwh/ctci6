@@ -17,8 +17,8 @@ second one searches ahead of the first one.
 */
 #pragma endregion
 
-#include "ctcilib/assorted_methods.cpp"
-#include "ctcilib/LinkedListNode.h"
+#include <ctcilib/assorted_methods.h>
+#include <ctcilib/LinkedListNode.h>
 
 #include <iostream>
 

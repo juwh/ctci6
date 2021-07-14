@@ -17,7 +17,7 @@ namespace ctcilib {
 
         public:
             /* Takes a list of strings as an argument, and constructs a trie that stores these strings. */    
-            Trie(std::vector<std::string> list);
+            Trie(const std::vector<std::string> &list);
 
             /* Checks whether this trie contains a string with the prefix passed
             * in as argument.

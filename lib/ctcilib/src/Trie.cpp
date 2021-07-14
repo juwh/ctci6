@@ -3,7 +3,7 @@
 using namespace ctcilib;
 
 /* Takes a list of strings as an argument, and constructs a trie that stores these strings. */
-Trie::Trie(std::vector<std::string> list) : root_{} {
+Trie::Trie(const std::vector<std::string> &list) : root_{} {
     for (std::string word : list) {
         root_.add_word(word);
     }
