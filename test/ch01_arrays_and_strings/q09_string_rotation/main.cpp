@@ -22,3 +22,25 @@ string is yx = erbottlewat.
 erbottlewat to itself. You get erbottlewaterbottlewat.
 */
 #pragma endregion
+
+#include <iostream>
+#include <string>
+#include <vector>
+
+bool IsSubstring(std::string big, std::string small) {
+    return big.find(small) != std::string::npos;
+}
+
+bool IsRotation(std::string s1, std::string s2) {
+    return true;
+}
+
+int main() {
+    std::vector<std::vector<std::string>> pairs = {{"apple", "pleap"}, {"waterbottle", "erbottlewat"}, {"camera", "macera"}};
+    for (std::vector<std::string> pair : pairs) {
+        std::string word1 = pair[0];
+        std::string word2 = pair[1];
+        bool is_rotation = IsRotation(word1, word2);
+        std::cout << word1 + ", " + word2 + ": " << is_rotation;
+    }
+}
