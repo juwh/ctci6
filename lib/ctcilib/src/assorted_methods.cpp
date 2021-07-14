@@ -558,7 +558,7 @@ namespace ctcilib {
     }
 
     Trie get_trie_dictionary() {
-        //return Trie(get_list_of_words());
+        return Trie(get_list_of_words());
     }
 
     std::unordered_set<std::string> get_word_list_as_hash_set() {
