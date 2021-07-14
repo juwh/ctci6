@@ -20,7 +20,22 @@ it to four arrays?
 
 #include <iostream>
 
-bool Rotate(std::vector< std::vector<int> >& matrix) {
+void Rotate(std::vector<std::vector<int>>& matrix) {
+    size_t n = matrix.size();
+    for (size_t layer = 0; layer < n/2; layer++) {
+        size_t last{n-layer-1};
+        for (size_t i = layer; i < last; i++) {
+            // we don't want to subtract the layer value from last when subtracting i
+            size_t offset{i-layer};
+            std::swap(matrix[layer][i], matrix[i][last]);
+            std::swap(matrix[last-offset][layer], matrix[layer][i]);
+            std::swap(matrix[last][last-offset], matrix[last-offset][layer]);
+        }
+    }
+}
+
+/*
+void Rotate(std::vector<std::vector<int>>& matrix) {
     int n = matrix.size();
     for (int layer = 0; layer < n / 2; layer++) {
         int first = layer;
@@ -44,14 +59,14 @@ bool Rotate(std::vector< std::vector<int> >& matrix) {
             matrix[i][last] = top;
         }
     }
-    return true;
 }
+*/
 
 int main() {
-    std::vector< std::vector<int> > matrix = ctcilib::RandomMatrix(3, 3, 0, 9);
-    ctcilib::PrintMatrix(matrix);
+    std::vector< std::vector<int> > matrix = ctcilib::random_matrix(3, 3, 0, 9);
+    ctcilib::print_matrix(matrix);
     Rotate(matrix);
     std::cout << std::endl;
-    ctcilib::PrintMatrix(matrix);
+    ctcilib::print_matrix(matrix);
 	return 0;
 }
