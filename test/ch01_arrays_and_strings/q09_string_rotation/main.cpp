@@ -32,7 +32,11 @@ bool IsSubstring(std::string big, std::string small) {
 }
 
 bool IsRotation(std::string s1, std::string s2) {
-    return true;
+    if (s1.length() == s2.length() && s1.length() != 0) {
+        std::string combined{s2 + s2};
+        return IsSubstring(combined, s1);
+    }
+    return false;
 }
 
 int main() {
@@ -41,6 +45,6 @@ int main() {
         std::string word1 = pair[0];
         std::string word2 = pair[1];
         bool is_rotation = IsRotation(word1, word2);
-        std::cout << word1 + ", " + word2 + ": " << is_rotation;
+        std::cout << word1 + ", " + word2 + ": " << is_rotation << std::endl;
     }
 }

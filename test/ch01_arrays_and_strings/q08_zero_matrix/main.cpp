@@ -20,10 +20,104 @@ itself for data storage?
 */
 #pragma endregion
 
-#include "ctcilib/assorted_methods.cpp"
+#include <ctcilib/assorted_methods.h>
 
 #include <iostream>
 #include <vector>
+
+void ZeroRow(std::vector<std::vector<int>> &matrix, size_t row) {
+	for (size_t col = 0; col < matrix[row].size(); col++) {
+		matrix[row][col] = 0;
+	}
+}
+
+void ZeroCol(std::vector<std::vector<int>> &matrix, size_t col) {
+	for (size_t row = 0; row < matrix.size(); row++) {
+		matrix[row][col] = 0;
+	}
+}
+
+void SetZeros(std::vector<std::vector<int>> &matrix) {
+	std::vector<bool> zero_row(matrix.size());
+	std::vector<bool> zero_col(matrix[0].size());
+
+	// Store the row and column index with value 0
+	for (size_t i = 0; i < matrix.size(); i++) {
+		for (size_t j = 0; j < matrix[0].size(); j++) {
+			if (!matrix[i][j]) {
+				zero_row[i] = true;
+				zero_col[j] = true;
+			}
+		}
+	}
+
+	// Nullify rows
+	for (size_t i = 1; i < zero_row.size(); i++) {
+		if (zero_row[i]) {
+			ZeroRow(matrix, i);
+		}
+	}
+
+	// Nullify columns
+	for (size_t j = 1; j < zero_col.size(); j++) {
+		if (zero_col[j]) {
+			ZeroCol(matrix, j);
+		}
+	}
+}
+
+void SetZerosInPlace(std::vector<std::vector<int>> &matrix) {
+	bool zero_row{false};
+	bool zero_col{false};
+
+	// Check if first row has a zero
+	for (size_t j = 0; j < matrix[0].size() && !zero_row; j++) {
+		if (!matrix[0][j]) {
+			zero_row = true;
+		}
+	}
+
+	// Check if first column has a zero
+	for (size_t i = 0; i < matrix.size() && !zero_col; i++) {
+		if (!matrix[i][0]) {
+			zero_col = true;
+		}
+	}
+
+	// Check for zeros in the rest of the array
+	for (size_t i = 1; i < matrix.size(); i++) {
+		for (size_t j = 1; j < matrix[0].size(); j++) {
+			if (!matrix[i][j]) {
+				matrix[i][0] = 0;
+				matrix[0][j] = 0;
+			}
+		}
+	}
+
+	// Nullify rows based on values in first column
+	for (size_t i = 1; i < matrix.size(); i++) {
+		if (!matrix[i][0]) {
+			ZeroRow(matrix, i);
+		}
+	}
+
+	// Nullify columns based on values in first row
+	for (size_t j = 1; j < matrix[0].size(); j++) {
+		if (!matrix[0][j]) {
+			ZeroCol(matrix, j);
+		}
+	}
+
+	// Nullify first row
+	if (zero_row) {
+		ZeroRow(matrix, 0);
+	}
+
+	// Nullify first column
+	if (zero_col) {
+		ZeroCol(matrix, 0);
+	}
+}
 
 bool MatricesAreEqual(std::vector<std::vector<int>> m1, std::vector<std::vector<int>> m2) {
 	if (m1.size() != m2.size() || m1[0].size() != m2[0].size()) {
@@ -58,8 +152,8 @@ int main() {
 
 	ctcilib::print_matrix(matrix1);
 	
-	//QuestionA.setZeros(matrix1);
-	//QuestionB.setZeros(matrix2);
+	SetZeros(matrix1);
+	SetZerosInPlace(matrix2);
 	
 	std::cout << std::endl;
 	
