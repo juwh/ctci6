@@ -75,9 +75,8 @@ namespace ctcilib {
 
     LinkedListNode<int> create_linked_list_from_array(std::vector<int> vals) {
         LinkedListNode<int> head = LinkedListNode<int>(vals.at(0), nullptr, nullptr);
-        LinkedListNode<int> current = head;
-        for (size_t i = 1; i < vals.size(); i++) {
-            current = LinkedListNode<int>(vals.at(i), nullptr, &current);
+        for (int val : vals) {
+            head.push_back(val);
         }
         return head;
     }

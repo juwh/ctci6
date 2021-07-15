@@ -73,6 +73,7 @@ namespace ctcilib {
 			if (this != &rhs)
 			{
 				LinkedListNode<T> tmp(rhs);
+				std::swap(this->data_, tmp.data_);
 				std::swap(this->next_, tmp.next_);
 			}
 			return *this;
