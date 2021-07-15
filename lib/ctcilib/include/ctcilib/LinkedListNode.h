@@ -59,9 +59,12 @@ namespace ctcilib {
 		*/
 		LinkedListNode(const LinkedListNode<T>& linked_list_node) : next_{nullptr}, prev_{nullptr}, last_{nullptr}, data_{linked_list_node.data_} {
 			LinkedListNode<T>* new_ptr{next_};
+			LinkedListNode<T>* prev_ptr{this};
 			for (auto copy_ptr=linked_list_node.next_; copy_ptr; copy_ptr=copy_ptr->next_) {
 				new_ptr = new LinkedListNode(copy_ptr->data_);
-				new_ptr->prev_ = this;
+				new_ptr->prev_ = prev_ptr;
+				prev_ptr->next_ = new_ptr;
+				prev_ptr = new_ptr;
 				new_ptr=new_ptr->next_;
 			}
 		}
@@ -73,6 +76,15 @@ namespace ctcilib {
 				std::swap(this->next_, tmp.next_);
 			}
 			return *this;
+		}
+
+		void push_back(const T& d) {
+			LinkedListNode<T>* cur_ptr{this};
+			while (cur_ptr->next_) {
+				cur_ptr = cur_ptr->next_;
+			}
+			cur_ptr->next_ = new LinkedListNode<T>(d, nullptr, nullptr);
+        	cur_ptr->next_->set_previous(cur_ptr);
 		}
 	};
 }
