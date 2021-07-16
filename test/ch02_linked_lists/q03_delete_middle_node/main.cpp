@@ -16,3 +16,29 @@ Hints:
 have access to the 9 node. Can you make it look like the correct answer?
 */
 #pragma endregion
+
+#include <ctcilib/assorted_methods.h>
+#include <ctcilib/LinkedListNode.h>
+
+#include <iostream>
+
+void DeleteNode(ctcilib::LinkedListNode<int>* node) {
+    if (node && node->next_) {
+        node->data_ = node->next_->data_;
+        auto del_node = node->next_;
+        node->set_next(del_node->next_);
+        if (node->next_) {
+            node->next_->set_previous(node);
+        }
+        del_node->next_ = nullptr;
+        delete del_node;
+    }
+    
+}
+
+int main() {
+    ctcilib::LinkedListNode<int> head = ctcilib::random_linked_list(10, 0, 10);
+    std::cout << head.print_forward() << std::endl;
+	DeleteNode(head.next_->next_->next_->next_); // delete node 4 (index 0)
+	std::cout << head.print_forward() << std::endl;
+}

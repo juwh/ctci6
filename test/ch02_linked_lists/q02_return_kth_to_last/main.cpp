@@ -26,64 +26,58 @@ end of the linked list, where will the others be?
 */
 #pragma endregion
 
+#include <ctcilib/assorted_methods.h>
+#include <ctcilib/LinkedListNode.h>
+
 #include <iostream>
-using namespace std;
+#include <vector>
 
-struct node {
-	node * next;
-	int data;
-};
-
-node* nthToLast(node* head, int k, int& i) {
-	if (head == NULL) {
-		return NULL;
+ctcilib::LinkedListNode<int>* KthToLastRecursive(ctcilib::LinkedListNode<int>* head, size_t k, size_t& i) {
+	if (!head) {
+		return nullptr;
 	}
-	node * nd = nthToLast(head->next, k, i);
-	i = i + 1;
+	auto node = KthToLastRecursive(head->next_, k, i);
+	i += 1;
 	if (i == k) {
 		return head;
 	}
-	return nd;
+	return node;
 }
 
-node* nthToLast(node* head, int k) {
-	int i = 0;
-	return nthToLast(head, k, i);
+// k beyond linked list size returns nullptr
+ctcilib::LinkedListNode<int>* KthToLast(ctcilib::LinkedListNode<int>* head, size_t k) {
+	size_t i = 0;
+	return KthToLastRecursive(head, k, i);
 }
 
-node* createList(int count) {
-	node* head = new node();
-	head->data = 0;
-	node* last = head;
-	for (int i = 1; i < count; i++) {
-		node* n = new node();
-		n->data = i;
-		last->next = n;
-		last = n;
+ctcilib::LinkedListNode<int>* KthToLastIterative(ctcilib::LinkedListNode<int>* head, size_t k) {
+	if (k == 0) {
+		return nullptr;
 	}
-	return head;
-}
 
-void printList(node* head) {
-	while (head != NULL) {
-		printf("%d", head->data);
-		head = head->next;
+	ctcilib::LinkedListNode<int>* cur_ptr{head};
+	ctcilib::LinkedListNode<int>* run_ptr{head};
+	for (size_t i = 1; i < k; i++) {
+		if (!cur_ptr->next_) {
+			return nullptr;
+		}
+		cur_ptr = cur_ptr->next_;
 	}
+
+	while (cur_ptr->next_) {
+		cur_ptr = cur_ptr->next_;
+		run_ptr = run_ptr->next_;
+	}
+	return run_ptr;
 }
 
 int main() {
-	int count = 5;
-	node* head = createList(count);
-	printList(head);
-	printf("\n");
-	for (int k = 0; k <= count; k++) {
-		node* n = nthToLast(head, k);
-		if (n != NULL) {
-			int data = n->data;
-			printf("%d: ", k);
-			printf("%d", n->data);
-			printf("\n");
-		}
+	std::vector<int> array = {0, 1, 2, 3, 4, 5, 6};
+	ctcilib::LinkedListNode<int> head = ctcilib::create_linked_list_from_array(array);
+	for (size_t i = 0; i <= array.size() + 1; i++) {
+		ctcilib::LinkedListNode<int>* node = KthToLast(&head, i);
+		//ctcilib::LinkedListNode<int>* node = KthToLastIterative(&head, i);
+		std::string node_value = !node ? "nullptr" : std::to_string(node->data_);
+		std::cout << std::to_string(i) + ": " + node_value << std::endl;
 	}
-	return 0;
 }
