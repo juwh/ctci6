@@ -52,12 +52,9 @@ namespace ctcilib {
 
     LinkedListNode<int> random_linked_list(size_t n, int min, int max) {
         LinkedListNode<int> root(random_int_in_range(min, max), nullptr, nullptr);
-        LinkedListNode<int> prev = root;
         for (size_t i = 1; i < n; i++) {
             int data = random_int_in_range(min, max);
-            LinkedListNode<int> next = LinkedListNode<int>(data, nullptr, nullptr);
-            prev.set_next(&next);
-            prev = next;
+            root.push_back(data);
         }
         return root;
     }
@@ -75,8 +72,8 @@ namespace ctcilib {
 
     LinkedListNode<int> create_linked_list_from_array(std::vector<int> vals) {
         LinkedListNode<int> head = LinkedListNode<int>(vals.at(0), nullptr, nullptr);
-        for (int val : vals) {
-            head.push_back(val);
+        for (size_t i = 1; i < vals.size(); i++) {
+            head.push_back(vals.at(i));
         }
         return head;
     }
