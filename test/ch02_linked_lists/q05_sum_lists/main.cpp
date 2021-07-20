@@ -177,7 +177,7 @@ ctcilib::LinkedListNode<int>* SumListsForward(const ctcilib::LinkedListNode<int>
     auto shorter = length_l1 > length_l2 ? PadList(copy_l2, length_l2 - length_l1) : PadList(copy_l1, length_l1 - length_l2);
     auto longer = length_l1 > length_l2 ? l1 : l2;
 
-    PartialSum sum = SumListsForwardHelper(l1, l2);
+    PartialSum sum = SumListsForwardHelper(shorter, longer);
     auto out = sum.sum_;
     if (sum.carry_) {out = InsertBefore(sum.sum_, sum.carry_);}
     return out;

@@ -87,6 +87,13 @@ namespace ctcilib {
 			cur_ptr->next_ = new LinkedListNode<T>(d, nullptr, nullptr);
         	cur_ptr->next_->set_previous(cur_ptr);
 		}
+
+		void push_front(const T& d) {
+			LinkedListNode<T>* node = new LinkedListNode<T>(data_, next_, nullptr);
+			set_next(node);
+        	node->set_previous(this);
+			data_ = d;
+		}
 	};
 }
 

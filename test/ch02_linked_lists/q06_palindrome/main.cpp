@@ -27,14 +27,87 @@ You can do this with a new class.
 #include <ctcilib/LinkedListNode.h>
 
 #include <iostream>
+#include <stack>
+#include <tuple>
 #include <vector>
 
-bool IsPalindrome(const ctcilib::LinkedListNode<int>& head) {
+bool IsEqual(const ctcilib::LinkedListNode<int>& one, const ctcilib::LinkedListNode<int>& two) {
+    for (auto [cur_one, cur_two] = std::make_tuple(&one, &two); cur_one; cur_one = cur_one->next_, cur_two = cur_two->next_) {
+        if (cur_one->data_ != cur_two->data_) {
+            return false;
+        }
+    }
     return true;
 }
 
-bool IsPalindromeRecursive(const ctcilib::LinkedListNode<int>& head) {
+ctcilib::LinkedListNode<int> ReverseAndClone(const ctcilib::LinkedListNode<int>& head) {
+    ctcilib::LinkedListNode<int> out(head.data_);
+    auto cur_node{head.next_};
+    while (cur_node) {
+        out.push_front(cur_node->data_);
+        cur_node = cur_node->next_;
+    }
+    return out;
+}
+
+bool IsPalindromeReverse(const ctcilib::LinkedListNode<int>& head) {
+    auto reverse{ReverseAndClone(head)};
+    return IsEqual(head, reverse);
+}
+
+bool IsPalindromeRunnerStack(const ctcilib::LinkedListNode<int>* head) {
+    auto slow{head};
+    auto runner{head};
+    std::stack<const ctcilib::LinkedListNode<int>*> reverse;
+    while (runner && runner->next_) {
+        reverse.push(slow);
+        slow = slow->next_;
+        runner = runner->next_->next_;
+    }
+
+    if (runner) {
+        slow = slow->next_;
+    }
+
+    while (reverse.size() && slow) {
+        if (slow->data_ != reverse.top()->data_) {
+            return false;
+        }
+        reverse.pop();
+        slow = slow->next_;
+    }
     return true;
+}
+
+struct Result {
+    ctcilib::LinkedListNode<int>* node_;
+    bool result_;
+};
+
+Result IsPalindromeRecursiveHelper(ctcilib::LinkedListNode<int>* slow, ctcilib::LinkedListNode<int>* fast) {
+    if (!fast) {
+        return Result{slow, true};
+    }
+
+    if (!fast->next_) {
+        return Result{slow->next_, true};
+    }
+
+    auto res = IsPalindromeRecursiveHelper(slow->next_, fast->next_->next_);
+    if (!res.result_) {
+        return res;
+    }
+
+    if (slow->data_ != res.node_->data_) {
+        res.result_ = false;
+    }
+    res.node_ = res.node_->next_;
+    return res;
+}
+
+bool IsPalindromeRecursive(ctcilib::LinkedListNode<int>* head) {
+    auto res{IsPalindromeRecursiveHelper(head, head)};
+    return res.result_;
 }
 
 int main() {
@@ -60,9 +133,9 @@ int main() {
             
             ctcilib::LinkedListNode<int> head = nodes[0];
             std::cout << head.print_forward() << std::endl;
-            bool result_a = IsPalindrome(head);
-            bool result_b = IsPalindrome(head);
-            bool result_c = IsPalindromeRecursive(head);
+            bool result_a = IsPalindromeReverse(head);
+            bool result_b = IsPalindromeRunnerStack(&head);
+            bool result_c = IsPalindromeRecursive(&head);
             std::cout << "A: " << result_a << std::endl;
             std::cout << "B: " << result_b << std::endl;
             std::cout << "C: " << result_c << std::endl;
@@ -75,10 +148,10 @@ int main() {
                 nodes[i].data_--;
             }
         }
-        // clear node from end to head to avoid deleted node conflicts
-        for (int i = length - 2; i >= 0; i--) {
+
+        for (int i = nodes.size() - 1; i > 0; i--) {
             nodes.pop_back();
-            nodes[i].set_next(nullptr);
+            nodes[i-1].set_next(nullptr);
         }
     }
 }
