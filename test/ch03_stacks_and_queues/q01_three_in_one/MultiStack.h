@@ -233,7 +233,7 @@ std::vector<T> MultiStack<T>::get_stack_values(size_t stack_num) const {
 template<typename T>
 std::string MultiStack<T>::stack_to_string(size_t stack_num) const {
     std::vector<T> items{get_stack_values(stack_num)};
-    return stack_num + ": " + ctcilib::array_to_string(items);
+    return std::to_string(stack_num) + ": " + ctcilib::array_to_string(items);
 }
 
 #endif // MULTISTACK_H_
