@@ -82,9 +82,9 @@ namespace ctcilib {
         std::string sb{};
         for (size_t i = start; i <= end; i++) {
             int v = array[i];
-            sb += v + ", ";
+            sb += std::to_string(v) + ", ";
         }
-        return sb;
+        return sb.substr(0, sb.length()-2);
     }
 
     std::string array_to_string(std::vector<int> array) {
@@ -99,7 +99,7 @@ namespace ctcilib {
         for (std::string v : array) {
             sb += v + ", ";
         }
-        return sb;
+        return sb.substr(0, sb.length()-2);
     }
 
     std::string to_full_binary_string(int a) {
