@@ -37,3 +37,75 @@ lengths, you can then apply a similar approach to the scenario when the linked l
 equal.
 */
 #pragma endregion
+
+#include <ctcilib/assorted_methods.h>
+#include <ctcilib/LinkedListNode.h>
+
+#include <cstdlib>
+#include <iostream>
+#include <vector>
+
+struct Result {
+    const ctcilib::LinkedListNode<int>* tail_;
+    size_t size_;
+    Result(const ctcilib::LinkedListNode<int>* tail, size_t size) : tail_{tail}, size_{size} {}
+};
+
+Result GetTailAndSize(const ctcilib::LinkedListNode<int>& list) {
+    size_t size{1};
+    auto cur_node{&list};
+    while (cur_node->next_) {
+        cur_node = cur_node->next_;
+        size++;
+    }
+    return Result(cur_node, size);
+}
+
+const ctcilib::LinkedListNode<int>* FindIntersection(const ctcilib::LinkedListNode<int>& list1, const ctcilib::LinkedListNode<int>& list2) {
+    /* Get tail and sizes. */
+    auto res_list1{GetTailAndSize(list1)};
+    auto res_list2{GetTailAndSize(list2)};
+
+    /* If different tail nodes, then there's no intersection. */
+    if (res_list1.tail_ != res_list2.tail_) {
+        return nullptr;
+    }
+
+    /* Set pointers to the start of each linked list. */
+    int offset{abs(res_list1.size_ - res_list2.size_)};
+    auto shorter{res_list1.size_ > res_list2.size_ ? &list2 : &list1};
+    auto longer{res_list1.size_ > res_list2.size_ ? &list1 : &list2};
+
+    /* Advance the pointer for the longer linked list by the difference in lengths. */
+    for (int i{0}; i < offset; i++) {
+        longer = longer->next_;
+    }
+
+    /* Move both pointers until you have a collision. */
+    while (shorter != longer) {
+        shorter = shorter->next_;
+        longer = longer->next_;
+    }
+    return longer;
+}
+
+int main() {
+    /* Create linked list */
+    std::vector<int> vals{-1, -2, 0, 1, 2, 3, 4, 5, 6, 7, 8};
+    auto list1{ctcilib::create_linked_list_from_array(vals)};
+    
+    std::vector<int> vals2 = {12, 14, 15};
+    auto list2{ctcilib::create_linked_list_from_array(vals2)};
+    
+    list2.next_->next_ = list1.next_->next_->next_->next_;
+    
+    std::cout << list1.print_forward() << std::endl;
+    std::cout << list2.print_forward() << std::endl;
+    
+    auto intersection{FindIntersection(list1, list2)};
+    
+    std::cout << intersection->print_forward() << std::endl;
+
+    // reset to avoid double deletion
+    list2.next_->next_ = nullptr;
+}
