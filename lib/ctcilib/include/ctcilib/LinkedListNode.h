@@ -45,7 +45,7 @@ namespace ctcilib {
 			}
 		}
 
-		std::string print_forward() {
+		std::string print_forward() const {
 			if (next_) {
 				return std::to_string(data_) + "->" + next_->print_forward();
 			} else {
