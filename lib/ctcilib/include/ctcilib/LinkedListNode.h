@@ -7,7 +7,7 @@
 namespace ctcilib {
 	template<
 		typename T, //real type
-		typename = std::enable_if<std::is_arithmetic<T>::value, T>::type
+		typename = typename std::enable_if<std::is_arithmetic<T>::value, T>::type
 	>
 	struct LinkedListNode {
 		LinkedListNode<T>* next_;

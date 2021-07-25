@@ -159,7 +159,7 @@ namespace ctcilib {
 
     void print_int_array(std::vector<int> array) {
         for (size_t i = 0; i < array.size(); i++) {
-            std::cout << array.at(i) + " ";
+            std::cout << std::to_string(array.at(i)) + " ";
         }
         std::cout << std::endl;
     }
@@ -182,7 +182,7 @@ namespace ctcilib {
 
     TreeNode<int> random_bst(size_t n, int min, int max) {
         int d = random_int_in_range(min, max);
-        TreeNode<int> root = TreeNode(d);
+        TreeNode<int> root(d);
         for (size_t i = 1; i < n; i++) {
             root.insert_in_order(random_int_in_range(min, max));
         }

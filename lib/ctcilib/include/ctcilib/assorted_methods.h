@@ -5,6 +5,7 @@
 #include "TreeNode.h"
 #include "Trie.h"
 
+#include <algorithm>
 #include <iostream>
 #include <iterator>
 #include <queue>
