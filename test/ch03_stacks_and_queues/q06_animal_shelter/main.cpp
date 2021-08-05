@@ -23,3 +23,31 @@ order and a list of cats in chronological order. What data would you need to fin
 oldest animal? How would you maintain this data?
 */
 #pragma endregion
+
+#include "AnimalQueue.h"
+
+#include <iostream>
+#include <string>
+
+int main() {
+    AnimalQueue animals;
+    animals.enqueue(Cat("Callie"));
+    animals.enqueue(Cat("Kiki"));
+    animals.enqueue(Dog("Fido"));
+    animals.enqueue(Dog("Dora"));
+    animals.enqueue(Cat("Kari"));
+    animals.enqueue(Dog("Dexter"));
+    animals.enqueue(Dog("Dobo"));
+    animals.enqueue(Cat("Copa"));
+    
+    std::cout << animals.dequeue_any()->name() << std::endl;	
+    std::cout << animals.dequeue_any()->name() << std::endl;	
+    std::cout << animals.dequeue_any()->name() << std::endl;	
+    
+    animals.enqueue(Dog("Dapa"));
+    animals.enqueue(Cat("Kilo"));
+    
+    while (animals.size()) {
+        std::cout << animals.dequeue_any()->name() << std::endl;
+    }
+}

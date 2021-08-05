@@ -23,3 +23,21 @@ capacity. Is this an issue? There's no right answer, but you should think about 
 handle this.
 */
 #pragma endregion
+
+#include "SetOfStacks.h"
+
+#include <iostream>
+
+int main() {
+    size_t capacity_per_substack{5};
+    SetOfStacks<int> set(capacity_per_substack);
+    for (int i = 0; i < 34; i++) {
+        set.push(i);
+    }
+    // std::cout << set.to_string() << std::endl;
+    // set.pop_at(4);
+    // std::cout << set.to_string() << std::endl;
+    for (int i = 0; i < 35; i++) {
+        std::cout << "Popped " + std::to_string(set.pop()) << std::endl;
+    }
+}

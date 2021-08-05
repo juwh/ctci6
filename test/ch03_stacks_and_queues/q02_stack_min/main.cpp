@@ -18,3 +18,25 @@ make it easier to solve the problem?
 beneath it, including itself).
 */
 #pragma endregion
+
+#include "StackWithNodeMin.h"
+#include "StackWithStackMin.h"
+
+#include <iostream>
+#include <vector>
+
+int main() {
+    StackWithNodeMin<int> stack;
+    StackWithStackMin<int> stack2;
+    std::vector<int> array = {2, 1, 3, 1};
+    for (int value : array) {
+        stack.push(value);
+        stack2.push(value);
+        std::cout << std::to_string(value) + ", ";
+    }
+    std::cout << std::endl << std::endl;
+    for (size_t i = 0; i < array.size(); i++) {
+        std::cout << "Popped " + std::to_string(stack.pop()) + ", " + std::to_string(stack2.pop()) << std::endl;
+        std::cout << "New min is " + std::to_string(stack.min()) + ", " + std::to_string(stack2.min()) << std::endl;
+    }
+}

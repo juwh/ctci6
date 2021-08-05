@@ -19,3 +19,41 @@ order? You might need some extra storage. What could you use for extra storage?
 the primary stack for additional storage.
 */
 #pragma endregion
+
+#include <ctcilib/assorted_methods.h>
+
+#include <iostream>
+#include <stack>
+
+void sort(std::stack<int>& s) {
+    std::stack<int> r;
+    while (!s.empty()) {
+        auto tmp{s.top()};
+        s.pop();
+        while (!r.empty() && tmp < r.top()) {
+            s.push(r.top());
+            r.pop();
+        }
+        r.push(tmp);
+    }
+
+    while (!r.empty()) {
+        s.push(r.top());
+        r.pop();
+    }
+}
+
+int main() {
+    std::stack<int> s;
+    for (int i = 0; i < 10; i++) {
+        int r = ctcilib::random_int_in_range(0,  1000);
+        s.push(r);
+    }
+    
+    sort(s);
+    
+    while(!s.empty()) {
+        std::cout << std::to_string(s.top()) << std::endl;
+        s.pop();
+    }
+}
