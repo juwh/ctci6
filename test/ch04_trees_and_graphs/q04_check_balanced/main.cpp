@@ -27,3 +27,39 @@ computation and the balance check. An integer return value can be used to indica
 both.
 */
 #pragma endregion
+
+#include <ctcilib/TreeNode.h>
+
+#include <algorithm>
+#include <iostream>
+#include <limits>
+#include <vector>
+
+int get_height(ctcilib::TreeNode<int>* root) {
+    if (!root) {
+        return 0;
+    }
+    int height_left{get_height(root->left_)};
+    int height_right{get_height(root->right_)};
+    if (abs(height_left - height_right) > 1) {
+        return std::numeric_limits<int>::min();
+    } else {
+        return std::max(height_left, height_right) + 1;
+    }
+}
+
+bool is_balanced(ctcilib::TreeNode<int>* root) {
+    return get_height(root) != std::numeric_limits<int>::min();
+}
+
+int main() {
+    // Create balanced tree
+    std::vector<int> array{{0, 1, 2, 3, 5, 6, 7, 8, 9, 10}};
+    TreeNode<int> root(array);
+    
+    std::cout << "Is balanced? " + std::to_string(is_balanced(&root)) << std::endl;
+    
+    root.insert_in_order(4); // Add 4 to make it unbalanced
+
+    std::cout << "Is balanced? " + std::to_string(is_balanced(&root)) << std::endl;
+}

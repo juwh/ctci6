@@ -35,7 +35,7 @@ namespace ctcilib {
             size_t size() const;
             bool is_bst() const;
             size_t height() const;
-            TreeNode<T>* find(T d) const;
+            TreeNode<T>* find(T d);
             /* static TreeNode<T>* createMinimalBST(std::vector<T> array)
             * Formally static function for object initialization, the method has been converted to be
             * a constructor to better manage memory allocation, class invariants
@@ -78,7 +78,7 @@ void TreeNode<T>::copy_node_recursive(TreeNode<T>* &to, const TreeNode<T>* from,
 }
 
 template<typename T>
-TreeNode<T>::TreeNode(std::vector<T> arr, size_t start, size_t end) : size_{end - start}, left_{nullptr}, right_{nullptr}, parent_{nullptr} {
+TreeNode<T>::TreeNode(std::vector<T> arr, size_t start, size_t end) : size_{end - start + 1}, left_{nullptr}, right_{nullptr}, parent_{nullptr} {
 	if (end >= arr.size()) {
 		throw std::invalid_argument("Final index argument must be less than the vector size.");
 	}
@@ -87,11 +87,11 @@ TreeNode<T>::TreeNode(std::vector<T> arr, size_t start, size_t end) : size_{end 
 	}
 	size_t mid {(start + end) / 2};
 	data_ = arr[mid];
-	if (mid - 1 > start) {
+	if (mid >= start + 1) {
 		left_ = new TreeNode(arr, start, mid - 1);
 		left_->parent_ = this;
 	}
-	if (end > mid + 1) {
+	if (end >= mid + 1) {
 		right_ = new TreeNode(arr, mid + 1, end);
 		right_->parent_ = this;
 	}
@@ -154,7 +154,7 @@ size_t TreeNode<T>::size() const {
 template<typename T>
 bool TreeNode<T>::is_bst() const {
 	if (left_ != nullptr) {
-		if (data_ < left_->data || !left_->is_bst()) {
+		if (data_ < left_->data_ || !left_->is_bst()) {
 			return false;
 		}
 	}
@@ -175,7 +175,7 @@ size_t TreeNode<T>::height() const {
 }
 
 template<typename T>
-TreeNode<T>* TreeNode<T>::find(T d) const {
+TreeNode<T>* TreeNode<T>::find(T d) {
 	if (d == data_) {
 		return this;
 	} else if (d <= data_) {

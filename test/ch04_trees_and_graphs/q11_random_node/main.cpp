@@ -48,3 +48,34 @@ on the number of nodes on each side. How does this work, exactly? How can we kno
 the number of nodes?  
 */
 #pragma endregion
+
+#include "Tree.h"
+
+#include <iostream>
+#include <vector>
+
+int main() {
+    std::vector<int> array{{1, 0, 6, 2, 3, 9, 4, 5, 8, 7}};
+    std::vector<int> counts(array.size());
+    Tree tree;
+    for (int x : array) {
+        tree.insert_in_order(x);
+    }
+    for (int i = 0; i < 1000000; i++) {
+        int d = tree.get_random_node()->data_;
+        counts[d]++;
+    }
+    
+    for (size_t i = 0; i < counts.size(); i++) {
+        std::cout << std::to_string(i) + ": " + std::to_string(counts[i]) << std::endl;
+    }
+
+   /*
+    Tree tree;
+    std::vector<int> array{{1, 0, 6, 2, 3, 9, 4, 5, 8, 7}};
+    for (int x : array) {
+        tree.insert_in_order(x);
+    }
+    tree.print();
+    */
+}

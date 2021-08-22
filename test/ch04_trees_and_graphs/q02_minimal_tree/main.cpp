@@ -21,3 +21,18 @@ you use this to operate on the root of the tree? Could you write the base case f
 function? Great! Then that's basically the entire function. 
 */
 #pragma endregion
+
+#include <ctcilib/TreeNode.h>
+
+#include <iostream>
+#include <vector>
+
+int main() {
+    std::vector<int> array{{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}};
+		
+    // We needed this code for other files, so check out the code in the library
+    ctcilib::TreeNode<int> root(array);
+    std::cout << "Root? " + std::to_string(root.data_) << std::endl;
+    std::cout << "Created BST? " + std::to_string(root.is_bst()) << std::endl;
+    std::cout << "Height: " + std::to_string(root.height()) << std::endl;
+}

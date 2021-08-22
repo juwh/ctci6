@@ -32,9 +32,9 @@ namespace ctcilib {
                 std::vector<const TreeNode<T>*> new_nodes;
                 for (auto node : nodes) {
                     if (node) {
-                        std::cout << node->m_data;
-                        new_nodes.push_back(node->m_left);
-                        new_nodes.push_back(node->m_right);
+                        std::cout << node->data_;
+                        new_nodes.push_back(node->left_);
+                        new_nodes.push_back(node->right_);
                     } else {
                         new_nodes.push_back(nullptr);
                         new_nodes.push_back(nullptr);
@@ -44,21 +44,21 @@ namespace ctcilib {
                 }
                 std::cout << std::endl;
 
-                for (int i = 1; i <= edge_lines; i++) {
-                    for (int j = 0; j < nodes.size(); j++) {
+                for (int i = 1; i <= (int)edge_lines; i++) {
+                    for (int j = 0; j < (int)nodes.size(); j++) {
                         BTreePrinter::print_whitespaces(first_spaces - i);
                         if (!nodes.at(j)) {
                             BTreePrinter::print_whitespaces(edge_lines + edge_lines + i + 1);
                             continue;
                         }
-                        if (nodes.at(j)->m_left) {
+                        if (nodes.at(j)->left_) {
                             std::cout << "/";
                         } else {
                             BTreePrinter::print_whitespaces(1);
                         }
                         BTreePrinter::print_whitespaces(i + i - 1);
 
-                        if (nodes.at(j)->m_right) {
+                        if (nodes.at(j)->right_) {
                             std::cout << "\\";
                         } else {
                             BTreePrinter::print_whitespaces(1);
@@ -81,7 +81,7 @@ namespace ctcilib {
                 if (node == nullptr) {
                     return 0;
                 }
-                return std::max(max_level(node->m_left), max_level(node->m_right)) + 1;
+                return std::max(max_level(node->left_), max_level(node->right_)) + 1;
             }
 
             template <typename T>
